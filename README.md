@@ -14,7 +14,7 @@ cargo leptos watch
 ```
 as separate commands.
 
-In case you don't have something installed, please follow the guide in [this repo]:https://github.com/ThePrimeagen/orgwasm since the original configuration was taken from there and then updated/expanded on.
+In case you don't have something installed, please follow the guide in [this repo]: https://github.com/ThePrimeagen/orgwasm since the original configuration was taken from there and then updated/expanded on.
 
 # Plans
 
