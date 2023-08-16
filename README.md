@@ -5,6 +5,7 @@ With this project I intend to solve that, as well as:
  - Learn a bit of Rust
  - Learn to use Leptos
  - Learn how to deploy a Rust project
+ - Get acquinted with using NeoVim
 
 # Starting the project
 If we assume you have everything installed, and you are on windows then you can run the ```start.ps1``` script, otherwise you can run the following commands:
