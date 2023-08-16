@@ -22,10 +22,26 @@ pub fn Body(cx: Scope, pagination: RwSignal<usize>) -> impl IntoView {
                         cx,
                         <HomePage/>
                     }/>
+                    <Route path="/shopping-cart" view=move |cx| view! {
+                        cx,
+                        <p>Shopping Cart</p>
+                    }/>
                     <Route path="/view-slots" view=move |cx| view! {
                         cx,
                         <p>View Slots</p>
                     }/>
+                    <Route path="/tickets" view=move |cx| view! {
+                        cx,
+                        <p>Tickets</p>
+                    }/>
+                   <Route path="/orders" view=move |cx| view! {
+                        cx,
+                        <p>Orders</p>
+                    }/>
+                    <Route path="/user-management" view=move |cx| view! {
+                        cx,
+                        <p>User Management</p>
+                    }/> 
               </Routes>
             </main>
         </div>
