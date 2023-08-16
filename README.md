@@ -12,6 +12,9 @@ A few of the technologies/libraries that are currently in the project
  - Leptos
  - TailwindCSS
 
+# End goal of the project
+To serve as the FE UI for [this project] of course, with some changes in said project as well. I plan to have both of them running separately and then have this project send over requests when needed for a component. Would've been nice if I also re-wrote the BE logic into Rust using actix or axum but what you gonna do, them's the rules :(
+
 # Starting the project
 If we assume you have everything installed, and you are on windows then you can run the ```start.ps1``` script, otherwise you can run the following commands:
 ```shell
@@ -33,3 +36,4 @@ This should be a sufficient list for required changes
  - [ ] Test for bugs
 
  [this repo]: https://github.com/ThePrimeagen/orgwasm
+ [this project]: https://github.com/PegasusMKD/Integrated-Systems-Homework
