@@ -7,6 +7,11 @@ With this project I intend to solve that, as well as:
  - Learn how to deploy a Rust project
  - Get acquinted with using NeoVim
 
+# Technologies being used
+A few of the technologies/libraries that are currently in the project
+ - Leptos
+ - TailwindCSS
+
 # Starting the project
 If we assume you have everything installed, and you are on windows then you can run the ```start.ps1``` script, otherwise you can run the following commands:
 ```shell
