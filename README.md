@@ -11,6 +11,7 @@ With this project I intend to solve that, as well as:
 A few of the technologies/libraries that are currently in the project
  - Leptos
  - TailwindCSS
+ - Actix (mainly for serving the site and CSS since I am using SSR)
 
 # End goal of the project
 To serve as the FE UI for [this project] of course, with some changes in said project as well. I plan to have both of them running separately and then have this project send over requests when needed for a component. Would've been nice if I also re-wrote the BE logic into Rust using actix or axum but what you gonna do, them's the rules :(
