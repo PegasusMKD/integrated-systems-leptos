@@ -14,7 +14,7 @@ cargo leptos watch
 ```
 as separate commands.
 
-In case you don't have something installed, please follow the guide in [this repo]: https://github.com/ThePrimeagen/orgwasm since the original configuration was taken from there and then updated/expanded on.
+In case you don't have something installed, please follow the guide in [this repo] since the original configuration was taken from there and then updated/expanded on.
 
 # Plans
 
@@ -25,3 +25,5 @@ This should be a sufficient list for required changes
  - [ ] Implement the Index pages for each menu item in the navigation bar
  - [ ] Implement all required functionalities (CRUD essentially)
  - [ ] Test for bugs
+
+ [this repo]: https://github.com/ThePrimeagen/orgwasm
