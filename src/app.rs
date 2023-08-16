@@ -15,6 +15,7 @@ pub fn App(cx: Scope) -> impl IntoView {
     view! {
         cx,
         <meta charset="utf-8" />
+        <title>Integrated Systems Leptos</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <Stylesheet id="leptos" href="/pkg/tailwind.css"/>
         <Stylesheet id="custom-css" href="/style/site.css"/>
