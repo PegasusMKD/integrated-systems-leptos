@@ -8,8 +8,9 @@ use crate::pagination::PaginationBar;
 pub fn Body(cx: Scope, pagination: RwSignal<usize>) -> impl IntoView {
     view! {
         cx,
-        <div class="container">
-            <main role="main" class="h-screen w-screen my-0 mx-auto max-w-3xl text-center">
+        <div class="w-full h-full">
+            <main role="main">
+                <div class="min-h-screen mx-auto mt-6">
                 <Routes>
                     <Route path="" view=move |cx| view! {
                         cx,
@@ -43,6 +44,7 @@ pub fn Body(cx: Scope, pagination: RwSignal<usize>) -> impl IntoView {
                         <p>User Management</p>
                     }/> 
               </Routes>
+            </div>
             </main>
         </div>
     }

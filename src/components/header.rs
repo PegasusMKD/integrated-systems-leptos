@@ -38,7 +38,7 @@ pub fn Header(cx: Scope) -> impl IntoView {
     view! {
         cx,
         <header>
-            <nav class="bg-white border-gray-200 dark:bg-gray-900">
+            <nav class="bg-white border-gray-200 dark:bg-gray-900 shadow-xl">
                 <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <A href="/home" class="flex items-center">
                         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">ISH</span>
