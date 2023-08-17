@@ -11,6 +11,10 @@ With this project I intend to solve that, as well as:
 A few of the technologies/libraries that are currently in the project
  - Leptos
  - TailwindCSS
+ - serde
+ - chrono
+ - reqwest
+ - WASM
  - Actix (mainly for serving the site and CSS since I am using SSR)
 
 # End goal of the project
@@ -34,6 +38,7 @@ This should be a sufficient list for required changes
  - [X] Implement the Home Page
  - [ ] Implement the Index pages for each menu item in the navigation bar - IN PROGRESS
  - [ ] View Slot Index Page - IN PROGRESS
+ - [ ] Tickets Index Page - IN PROGRESS
  - [ ] Implement all required functionalities (CRUD essentially)
  - [ ] Test for bugs
 
