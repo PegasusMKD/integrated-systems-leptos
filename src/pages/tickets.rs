@@ -5,20 +5,6 @@ use chrono::prelude::*;
 use uuid::Uuid;
 use crate::models::{Ticket, TicketStatus, ViewSlot};
 
-#[component]
-pub fn TicketItem(cx: Scope, record: Ticket) -> impl IntoView {
-    view! {
-        cx,
-        <tr>
-            <th scope="row">1</th>
-            <td>{record.seat_number}</td>
-            <td>{record.price} $</td>
-            <td>{record.view_slot.movie_name} - {record.view_slot.time_slot.format("%Y-%m-%d %H:%M:%S").to_string()}</td>
-            <td>{format!("{}", record.ticket_status)}</td>
-        </tr>
-    }
-}
-
 async fn get_data() -> Vec<Ticket> {
     // Make this the official return after getting some data in the database
     let _data = reqwest::get("https://localhost:44316/api/ticket")
@@ -38,6 +24,20 @@ async fn get_data() -> Vec<Ticket> {
             ticket_status: TicketStatus::Bought,
         }
     ]
+}
+
+#[component]
+pub fn TicketItem(cx: Scope, record: Ticket) -> impl IntoView {
+    view! {
+        cx,
+        <tr>
+            <th scope="row">1</th>
+            <td>{record.seat_number}</td>
+            <td>{record.price} $</td>
+            <td>{record.view_slot.movie_name} - {record.view_slot.time_slot.format("%Y-%m-%d %H:%M:%S").to_string()}</td>
+            <td>{format!("{}", record.ticket_status)}</td>
+        </tr>
+    }
 }
 
 // TODO: Maybe use #[component(transparent)] and return routes here instead of a direct view, since
