@@ -31,8 +31,9 @@ In case you don't have something installed, please follow the guide in [this rep
 This should be a sufficient list for required changes
 
  - [X] Implement base template (header/footer/base body)
- - [ ] Implement the Home Page
- - [ ] Implement the Index pages for each menu item in the navigation bar
+ - [X] Implement the Home Page
+ - [ ] Implement the Index pages for each menu item in the navigation bar - IN PROGRESS
+ - [ ] View Slot Index Page - IN PROGRESS
  - [ ] Implement all required functionalities (CRUD essentially)
  - [ ] Test for bugs
 
