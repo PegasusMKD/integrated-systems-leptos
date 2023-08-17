@@ -34,9 +34,33 @@ leptos = { version = "0.4.8", default-features = false }
 leptos_actix = { version = "0.4.8", optional = true }
 leptos_meta = { version = "0.4.8", default-features = false }
 leptos_router = { version = "0.4.8", default-features = false }
+serde-wasm-bindgen = "0.5.0"
+
+[dependencies.uuid]
+version = "1.4.1"
+features = [
+    "v4",                # Lets you generate random UUIDs
+    "fast-rng",          # Use a faster (but still sufficiently random) RNG
+    "macro-diagnostics", # Enable better diagnostics for compile-time UUIDs
+]
+
+[dependencies.chrono]
+version = "0.4.26"
+features = [
+  "serde"
+]
+
+[dependencies.serde]
+version = "1.0.183"
+
+[dependencies.reqwest]
+version = "0.11.18"
+features = [
+  "json"
+]
 
 [features]
-default = ["csr"]
+default=["csr"]
 hydrate = [
   "leptos/hydrate",
   "leptos_meta/hydrate",

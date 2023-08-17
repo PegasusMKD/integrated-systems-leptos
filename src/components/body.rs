@@ -3,6 +3,8 @@ use leptos_router::*;
 
 use crate::pages::home::HomePage;
 use crate::pagination::PaginationBar;
+use crate::pages::view_slots::ViewSlotsPage;
+use crate::pages::tickets::TicketsPage;
 
 #[component]
 pub fn Body(cx: Scope, pagination: RwSignal<usize>) -> impl IntoView {
@@ -29,11 +31,11 @@ pub fn Body(cx: Scope, pagination: RwSignal<usize>) -> impl IntoView {
                     }/>
                     <Route path="/view-slots" view=move |cx| view! {
                         cx,
-                        <p>View Slots</p>
+                        <ViewSlotsPage/>
                     }/>
                     <Route path="/tickets" view=move |cx| view! {
                         cx,
-                        <p>Tickets</p>
+                        <TicketsPage/>
                     }/>
                    <Route path="/orders" view=move |cx| view! {
                         cx,

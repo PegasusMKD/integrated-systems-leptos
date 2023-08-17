@@ -2,6 +2,7 @@ mod app;
 pub mod pagination;
 pub mod pages;
 pub mod components;
+pub mod models;
 use cfg_if::cfg_if;
 
 cfg_if! {

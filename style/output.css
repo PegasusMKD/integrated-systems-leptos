@@ -624,6 +624,10 @@ video {
   display: inline-flex;
 }
 
+.table {
+  display: table;
+}
+
 .hidden {
   display: none;
 }
@@ -694,6 +698,10 @@ video {
 
 .justify-stretch {
   justify-content: stretch;
+}
+
+.justify-items-center {
+  justify-items: center;
 }
 
 .justify-items-stretch {
