@@ -1,9 +1,9 @@
 use uuid::Uuid;
-use serde::Deserialize;
+use serde::{Serialize, Deserialize};
 use chrono::{Utc, DateTime};
 use std::fmt;
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum TicketStatus {
     Bought
 }
@@ -16,14 +16,14 @@ impl fmt::Display for TicketStatus {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ViewSlot {
     pub movie_name: String,
     pub time_slot: DateTime<Utc> 
 }
 
 
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Ticket {
     pub id: Uuid,
     pub seat_number: String,
