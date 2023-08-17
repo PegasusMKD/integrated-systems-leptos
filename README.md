@@ -39,6 +39,10 @@ This should be a sufficient list for required changes
  - [ ] Implement the Index pages for each menu item in the navigation bar - IN PROGRESS
  - [ ] View Slot Index Page - IN PROGRESS
  - [ ] Tickets Index Page - IN PROGRESS
+ - [X] Baseline the tickets page
+ - [X] Connect directly to BE
+ - [ ] Deserialize data since keys are using different cases - IN PROGRESS
+ - [ ] Style the table - IN PROGRESS
  - [ ] Implement all required functionalities (CRUD essentially)
  - [ ] Test for bugs
 
