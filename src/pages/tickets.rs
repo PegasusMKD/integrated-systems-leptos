@@ -5,28 +5,27 @@ use crate::models::Ticket;
 // TODO: Add proper error handling with status_code checks and custom errors (probably)
 async fn get_data() -> reqwest::Result<Vec<Ticket>> {
     // Make this the official return after getting some data in the database
-    let data = reqwest::get("https://localhost:44316/api/ticket")
+    let _data = reqwest::get("https://localhost:44316/api/ticket")
         .await?;
     
-    if !data.status().is_success() {
+    if !_data.status().is_success() {
         leptos::log!("Passed the get...");
-        leptos::log!("Status: {:?}", data.status());
+        leptos::log!("Status: {:?}", _data.status());
         return Ok(Vec::new()); // TODO: Add proper error return so it can be handled down the line
     }
 
-   // Vec::new().iter().enumerate().collect(); 
-
-    data
+    _data
         .json::<Vec<Ticket>>()
         .await
 }
 
 #[component]
-pub fn TicketItem(cx: Scope, idx: usize, record: Ticket) -> impl IntoView {
+pub fn TicketItem(cx: Scope, idx: RwSignal<usize>, record: Ticket) -> impl IntoView {
+    idx.set(idx.get() + 1);
     view! {
         cx,
         <tr>
-            <th scope="row">{idx + 1}</th>
+            <th scope="row">{idx.get().clone()}</th>
             <td>{record.seat_number}</td>
             <td>{record.price} $</td>
             <td>{record.view_slot.movie_name} - {record.view_slot.time_slot.to_string()}</td>
@@ -54,23 +53,21 @@ pub fn TicketsPage(cx: Scope) -> impl IntoView {
         });
    
     // So signals are essentially like useState in React
-    let (data, set_data) = create_signal(cx, Vec::<(usize, Ticket)>::new());
+    let (data, set_data) = create_signal(cx, Vec::<Ticket>::new());
+    let idx = create_rw_signal(cx, 0);
 
     let tickets_data_table = move || {
         let value = resource.read(cx);
         match value {
             None => set_data.set(Vec::new()),
-            Some(val) => set_data.set(val.iter()
-                .enumerate()
-                .map(|(idx, record)| (idx, record.clone()))
-                .collect())
+            Some(val) => set_data.set(val)
         };
 
         view! {cx,
             <For 
                 each = move || data.get()
-                key = |(_, record)| record.id
-                view = move |cx, record| { view! { cx, <TicketItem idx={record.0} record={record.1}/> } }
+                key = |record: &Ticket| record.id
+                view = move |cx, record: Ticket| { view! { cx, <TicketItem record idx/> } }
             />    
         }
     };
