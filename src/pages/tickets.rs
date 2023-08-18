@@ -21,11 +21,11 @@ async fn get_data() -> reqwest::Result<Vec<Ticket>> {
 
 #[component]
 pub fn TicketItem(cx: Scope, idx: RwSignal<usize>, record: Ticket) -> impl IntoView {
-    idx.set(idx.get() + 1);
+    idx.update(|val: &mut usize| *val += 1);
     view! {
         cx,
         <tr>
-            <th scope="row">{idx.get().clone()}</th>
+            <th scope="row">{idx.get_untracked().to_string()}</th>
             <td>{record.seat_number}</td>
             <td>{record.price} $</td>
             <td>{record.view_slot.movie_name} - {record.view_slot.time_slot.to_string()}</td>
@@ -62,12 +62,16 @@ pub fn TicketsPage(cx: Scope) -> impl IntoView {
             None => set_data.set(Vec::new()),
             Some(val) => set_data.set(val)
         };
+        
+        idx.set(0);
 
         view! {cx,
             <For 
                 each = move || data.get()
                 key = |record: &Ticket| record.id
-                view = move |cx, record: Ticket| { view! { cx, <TicketItem record idx/> } }
+                view = move |cx, record: Ticket| {
+                    view! { cx, <TicketItem record idx/> } 
+                }
             />    
         }
     };

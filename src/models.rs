@@ -8,7 +8,7 @@ use crate::constants::DATE_TIME_FORMAT;
 time::serde::format_description!(standard_format, PrimitiveDateTime, DATE_TIME_FORMAT);
 
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize_repr)]
+#[derive(Clone, Debug, PartialEq, Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
 pub enum TicketStatus {
     Bought = 0,
@@ -49,7 +49,7 @@ pub struct Ticket {
     pub view_slot: ViewSlot,
 
     #[serde(alias = "ticketStatus")]
-    pub ticket_status: TicketStatus
+    pub ticket_status: TicketStatus    
 }
 
 
