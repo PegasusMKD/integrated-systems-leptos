@@ -1,6 +1,8 @@
 use leptos::*;
 
-use crate::models::Ticket;
+use uuid::Uuid;
+use crate::models::{Ticket, TicketStatus, ViewSlot};
+
 
 // TODO: Add proper error handling with status_code checks and custom errors (probably)
 async fn get_data() -> reqwest::Result<Vec<Ticket>> {
@@ -8,24 +10,36 @@ async fn get_data() -> reqwest::Result<Vec<Ticket>> {
     let _data = reqwest::get("https://localhost:44316/api/ticket")
         .await?;
     
-    if !_data.status().is_success() {
-        leptos::log!("Passed the get...");
-        leptos::log!("Status: {:?}", _data.status());
-        return Ok(Vec::new()); // TODO: Add proper error return so it can be handled down the line
-    }
+    // if !_data.status().is_success() {
+    //    leptos::log!("Passed the get...");
+    //    leptos::log!("Status: {:?}", _data.status());
+    //    return Ok(Vec::new()); // TODO: Add proper error return so it can be handled down the line
+    // }
 
     _data
         .json::<Vec<Ticket>>()
-        .await
+        .await?;
+
+    Ok(    vec![
+        Ticket {
+            id: Uuid::new_v4(),
+            seat_number: "A11".to_string(),
+            price: 4.32,
+            view_slot: ViewSlot {
+                movie_name: "Test name".to_string(),
+                time_slot: time::macros::datetime!(2019-01-01 0:00),
+            },
+            ticket_status: TicketStatus::Bought,
+        }
+    ])
 }
 
 #[component]
-pub fn TicketItem(cx: Scope, idx: RwSignal<usize>, record: Ticket) -> impl IntoView {
-    idx.set(idx.get() + 1);
+pub fn TicketItem(cx: Scope, record: Ticket) -> impl IntoView {
     view! {
         cx,
         <tr>
-            <th scope="row">{idx.get().clone()}</th>
+            <th scope="row">1</th>
             <td>{record.seat_number}</td>
             <td>{record.price} $</td>
             <td>{record.view_slot.movie_name} - {record.view_slot.time_slot.to_string()}</td>
@@ -54,7 +68,6 @@ pub fn TicketsPage(cx: Scope) -> impl IntoView {
    
     // So signals are essentially like useState in React
     let (data, set_data) = create_signal(cx, Vec::<Ticket>::new());
-    let idx = create_rw_signal(cx, 0);
 
     let tickets_data_table = move || {
         let value = resource.read(cx);
@@ -67,7 +80,7 @@ pub fn TicketsPage(cx: Scope) -> impl IntoView {
             <For 
                 each = move || data.get()
                 key = |record: &Ticket| record.id
-                view = move |cx, record: Ticket| { view! { cx, <TicketItem record idx/> } }
+                view = move |cx, record: Ticket| { view! { cx, <TicketItem record/> } }
             />    
         }
     };
