@@ -1,24 +1,20 @@
 use leptos::*;
 
-use crate::models::{Ticket, FilterTickets};
+use crate::models::Ticket;
 
 // TODO: Add proper error handling with status_code checks and custom errors (probably)
-async fn get_data(from_date: String, to_date: String) -> reqwest::Result<Vec<Ticket>> {
+async fn get_data() -> reqwest::Result<Vec<Ticket>> {
     // Make this the official return after getting some data in the database
-    let data = FilterTickets::new(from_date, to_date);
-    let client = reqwest::Client::new();
-    let request = client.post("https://localhost:44316/api/ticket/filter")
-        .json(&data)
-        .send()
+    let _data = reqwest::get("https://localhost:44316/api/ticket")
         .await?;
     
-    if !request.status().is_success() {
+    if !_data.status().is_success() {
         leptos::log!("Passed the get...");
-        leptos::log!("Status: {:?}", request.status());
+        leptos::log!("Status: {:?}", _data.status());
         return Ok(Vec::new()); // TODO: Add proper error return so it can be handled down the line
     }
-    
-    request
+
+    _data
         .json::<Vec<Ticket>>()
         .await
 }
@@ -45,16 +41,9 @@ pub fn TicketItem(cx: Scope, idx: RwSignal<usize>, record: Ticket) -> impl IntoV
 pub fn TicketsPage(cx: Scope) -> impl IntoView {
     // TODO: Add button to swap to "create" page
     // TODO: Add table of ViewSlots, each with their own associated action
-  
-    let (from_date, set_from_date) = create_signal(cx, "".to_string());
-    let (to_date, set_to_date) = create_signal(cx, "".to_string());
-    let (trigger_filter, set_trigger_filter) = create_signal(cx, true);
-    let (data, set_data) = create_signal(cx, Vec::<Ticket>::new());
-    
-    let resource: leptos::Resource<bool, Vec<Ticket>> = create_resource(cx, 
-        move || trigger_filter.get(), 
-        move |_| async move {
-            match get_data(from_date.get_untracked(), to_date.get_untracked()).await {
+    let resource: leptos::Resource<(), Vec<Ticket>> = create_resource(cx, || (), 
+        |_| async move {
+            match get_data().await {
                 Ok(data) => data,
                 Err(err) => {
                     leptos::log!("[Tickets Page] Error doing a request to fetch tickets: {:?}", err);
@@ -62,8 +51,9 @@ pub fn TicketsPage(cx: Scope) -> impl IntoView {
                 }
             }
         });
-  
+   
     // So signals are essentially like useState in React
+    let (data, set_data) = create_signal(cx, Vec::<Ticket>::new());
     let idx = create_rw_signal(cx, 0);
 
     let tickets_data_table = move || {
@@ -74,7 +64,7 @@ pub fn TicketsPage(cx: Scope) -> impl IntoView {
         };
         
         idx.set(0);
-        
+
         view! {cx,
             <For 
                 each = move || data.get()
@@ -91,30 +81,29 @@ pub fn TicketsPage(cx: Scope) -> impl IntoView {
         <div class="flex place-content-center">
             // TODO: Add filters
             <div class="w-3/4">
-                <h2 class="text-5xl font-semibold mb-4">Tickets</h2>
-                <div class="rounded-lg border-2 border-neutral-600 flex-row pt-6 pl-4 pb-1 mb-5 shadow-xl">
+                <div class="rounded-lg border-2 border-neutral-600 flex-row pt-4 pl-4 pb-1 mb-3 shadow-xl">
                     //<div>
                     <div class="flex flex-row pb-4">
                         <div>
                         <label for="from">From Date</label>
-                        <input type="datetime-local" id="from" on:input=move |event| { set_from_date.set(event_target_value(&event)); } prop:value=move || { from_date.get() } class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        <input type="date" id="from" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                         </div>
                         <div class="mx-4">
                         <label for="to">To Date</label>
-                        <input type="datetime-local" id="to" on:input=move |event| { set_to_date.set(event_target_value(&event)); } prop:value=move || { to_date.get() } class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                        <input type="date" id="to" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                         </div>
                     </div>
-                    <button on:click = move |_| { set_trigger_filter.set(!trigger_filter.get()); } class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Filter</button>
+                    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Filter</button>
                     //</div>
                 </div>
                 <Transition fallback=move || { view! {cx, <div></div> } }>
                     <table class="w-full flex-row text-sm text-center rounded-lg bordertext-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                            <tr class="border-y rounded-t-lg border-gray-800">
+                            <tr class="rounded-lg">
                                 <th scope="col" class="px-6 py-3">#</th>
                                 <th scope="col" class="px-6 py-3">Seat Number</th>
                                 <th scope="col" class="px-6 py-3">Price</th>
-                                <th scope="col" class="px-6 py-3">View Slot (Movie Name - Time Slot)</th>
+                                <th scope="col" class="px-6 py-3">View Slot</th>
                                 <th scope="col" class="px-6 py-3">Availability</th>
                             </tr>
                         </thead>
