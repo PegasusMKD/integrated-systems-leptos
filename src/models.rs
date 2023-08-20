@@ -52,7 +52,7 @@ pub struct Ticket {
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct FilterTickets {
+pub struct FilterTicketsByDates {
     #[serde(rename(serialize = "fromTimeSlot"), with = "standard_format::option")]
     pub from_date: Option<PrimitiveDateTime>,
 
@@ -60,11 +60,11 @@ pub struct FilterTickets {
     pub to_date: Option<PrimitiveDateTime>
 }
 
-impl FilterTickets {
+impl FilterTicketsByDates {
 
-    pub fn new(from: String, to: String) -> FilterTickets {
+    pub fn new(from: String, to: String) -> FilterTicketsByDates {
         let format = format_description!("[year]-[month]-[day]T[hour]:[minute]");
-        let mut filter = FilterTickets {
+        let mut filter = FilterTicketsByDates {
             from_date: None,
             to_date: None
         };
@@ -85,3 +85,8 @@ impl FilterTickets {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Genre {
+    pub id: usize,
+    pub name: String
+}
