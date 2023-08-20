@@ -9,12 +9,12 @@ use crate::models::Ticket;
 use crate::pages::tickets::{index::TicketsIndexPage, export::TicketsExportPage};
 
 #[component]
-pub fn TicketItem(cx: Scope, idx: RwSignal<usize>, record: Ticket) -> impl IntoView {
-    idx.update(|val: &mut usize| *val += 1);
+pub fn TicketItem(cx: Scope, record: Ticket) -> impl IntoView {
+    // idx.update(|val: &mut usize| *val += 1);
     view! {
         cx,
         <tr class="border-b bg-white border-gray-300 hover:bg-gray-50">
-            <th scope="row" class="px-6 py-4">{idx.get_untracked().to_string()}</th>
+            // <th scope="row" class="px-6 py-4">{idx.get()}</th>
             <td class="px-6 py-4">{record.seat_number}</td>
             <td class="px-6 py-4">{record.price} $</td>
             <td class="px-6 py-4">{record.view_slot.movie_name} - {record.view_slot.time_slot.to_string()}</td>

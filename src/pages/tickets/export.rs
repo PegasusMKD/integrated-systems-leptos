@@ -1,4 +1,5 @@
 use leptos::*;
+use leptos_router::*;
 
 use crate::pages::tickets::TicketItem;
 use crate::models::{Ticket, Genre};
@@ -77,14 +78,16 @@ pub fn GenreFilter(cx: Scope, trigger_filter: RwSignal<bool>, genre: RwSignal<St
                     </div>
                 </div>
                 <button on:click = move |_| { trigger_filter.set(!trigger_filter.get()); } class="mx-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Filter</button>
-                <button on:click = move |_| { async { }; } class="mx-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">Export XLSX</button>
+                <a href=move || {format!("https://localhost:44316/api/ticket/excel{}",if genre.get().is_empty() { "".to_string() } else { format!("?genre={}", genre.get()) })} download=""><button class="mx-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">Export XLSX</button></a>
             </div>
         </Transition>
     }
 }
 
+
 #[component]
 pub fn TicketsExportTable(cx: Scope, trigger_filter: RwSignal<bool>, genre: RwSignal<String>) -> impl IntoView {
+    // let idx = create_rw_signal(cx, 0);
     let resource: leptos::Resource<bool, Vec<Ticket>> = create_resource(cx, 
         move || trigger_filter.get(), 
         move |_| async move {
@@ -97,7 +100,6 @@ pub fn TicketsExportTable(cx: Scope, trigger_filter: RwSignal<bool>, genre: RwSi
             }
         });
   
-    let idx = create_rw_signal(cx, 0);
     let (data, set_data) = create_signal(cx, Vec::<Ticket>::new());
 
     let tickets_data_table = move || {
@@ -107,7 +109,7 @@ pub fn TicketsExportTable(cx: Scope, trigger_filter: RwSignal<bool>, genre: RwSi
             Some(val) => set_data.set(val)
         };
         
-        idx.set(0);
+        // idx.set(0);
     };
 
 
@@ -117,7 +119,7 @@ pub fn TicketsExportTable(cx: Scope, trigger_filter: RwSignal<bool>, genre: RwSi
             <table class="w-full flex-row text-sm text-center rounded-lg bordertext-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr class="border-y rounded-t-lg border-gray-800">
-                        <th scope="col" class="px-6 py-3">#</th>
+                        // <th scope="col" class="px-6 py-3">#</th>
                         <th scope="col" class="px-6 py-3">Seat Number</th>
                         <th scope="col" class="px-6 py-3">Price</th>
                         <th scope="col" class="px-6 py-3">View Slot (Movie Name - Time Slot)</th>
@@ -130,7 +132,7 @@ pub fn TicketsExportTable(cx: Scope, trigger_filter: RwSignal<bool>, genre: RwSi
                         each = move || data.get()
                         key = |record: &Ticket| record.id
                         view = move |cx, record: Ticket| {
-                            view! { cx, <TicketItem record idx/> } 
+                            view! { cx, <TicketItem record/> } 
                         }
                     />    
                 </tbody>

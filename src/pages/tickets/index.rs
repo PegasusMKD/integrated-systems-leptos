@@ -62,7 +62,7 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
             }
         });
   
-    let idx = create_rw_signal(cx, 0);
+    // let idx = create_rw_signal(cx, 0);
     let (data, set_data) = create_signal(cx, Vec::<Ticket>::new());
 
     let tickets_data_table = move || {
@@ -72,7 +72,7 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
             Some(val) => set_data.set(val)
         };
         
-        idx.set(0);
+        // idx.set(0);
     };
 
 
@@ -82,7 +82,7 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
             <table class="w-full flex-row text-sm text-center rounded-lg bordertext-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr class="border-y rounded-t-lg border-gray-800">
-                        <th scope="col" class="px-6 py-3">#</th>
+                        // <th scope="col" class="px-6 py-3">#</th>
                         <th scope="col" class="px-6 py-3">Seat Number</th>
                         <th scope="col" class="px-6 py-3">Price</th>
                         <th scope="col" class="px-6 py-3">View Slot (Movie Name - Time Slot)</th>
@@ -95,7 +95,7 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
                         each = move || data.get()
                         key = |record: &Ticket| record.id
                         view = move |cx, record: Ticket| {
-                            view! { cx, <TicketItem record idx/> } 
+                            view! { cx, <TicketItem record/> } 
                         }
                     />    
                 </tbody>
