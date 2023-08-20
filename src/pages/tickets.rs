@@ -1,4 +1,5 @@
 use leptos::*;
+use leptos_router::*;
 
 use crate::models::{Ticket, FilterTickets};
 
@@ -116,26 +117,57 @@ pub fn TicketsTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: RwSign
     }
 }
 
-// TODO: Maybe use #[component(transparent)] and return routes here instead of a direct view, since
-// depending on the action, we'd transfer them over to another page (aka CreateViewSlot,
-// EditViewSlot, etc.)
 #[component]
-pub fn TicketsPage(cx: Scope) -> impl IntoView {
+pub fn TicketsIndexPage(cx:Scope) -> impl IntoView {
     let from_date = create_rw_signal(cx, "".to_string());
     let to_date = create_rw_signal(cx, "".to_string());
     let trigger_filter = create_rw_signal(cx, true);
-    
 
-    view! { cx,
+    view! {cx,
+        <FromToTicketsFilter from_date to_date trigger_filter/>
+        <TicketsTable from_date to_date trigger_filter/>
+    }
+}
+
+#[component]
+pub fn TicketsExportPage(cx: Scope) -> impl IntoView {
+    let from_date = create_rw_signal(cx, "".to_string());
+    let to_date = create_rw_signal(cx, "".to_string());
+    let trigger_filter = create_rw_signal(cx, true);
+
+    view! {cx,
+        <TicketsTable from_date to_date trigger_filter/>
+    }
+}
+
+
+#[component]
+pub fn TicketsBaseTemplate(cx:Scope) -> impl IntoView {
+
+    view! {cx,
         <div class="h-screen w-full">
             <div class="flex place-content-center">
                 // TODO: Add filters
                 <div class="w-3/4">
                     <h2 class="text-5xl font-semibold mb-4">Tickets</h2>
-                    <FromToTicketsFilter from_date to_date trigger_filter/>
-                    <TicketsTable from_date to_date trigger_filter/>
-                </div>
+                    <Outlet/>        
             </div>
         </div>
+    </div>
+
+    }
+}
+
+
+// TODO: Maybe use #[component(transparent)] and return routes here instead of a direct view, since
+// depending on the action, we'd transfer them over to another page (aka CreateViewSlot,
+// EditViewSlot, etc.)
+#[component(transparent)]
+pub fn TicketsPage(cx: Scope) -> impl IntoView {
+    view! { cx,
+        <Route path="/" view=TicketsBaseTemplate>
+            <Route path="/" view=TicketsIndexPage/>
+            <Route path="export" view=TicketsExportPage/>   
+        </Route>
     }
 }
