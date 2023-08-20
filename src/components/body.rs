@@ -33,7 +33,7 @@ pub fn Body(cx: Scope, pagination: RwSignal<usize>) -> impl IntoView {
                         cx,
                         <ViewSlotsPage/>
                     }/>
-                    <Route path="/tickets" view=move |cx| view! {cx, <Outlet/>}>
+                    <Route path="/tickets" view=Outlet>
                         <TicketsPage/>   
                     </Route>
                    <Route path="/orders" view=move |cx| view! {
