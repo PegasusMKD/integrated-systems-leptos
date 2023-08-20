@@ -38,13 +38,21 @@ This should be a sufficient list for required changes
  - [X] Implement the Home Page
  - [ ] Implement the Index pages for each menu item in the navigation bar - IN PROGRESS
  - [ ] View Slot Index Page - IN PROGRESS
- - [ ] Tickets Index Page - IN PROGRESS
+ - [X] Tickets Index Page
+ - [X] Tickets Export Page (with all related functionality)
  - [X] Baseline the tickets page
  - [X] Connect directly to BE
- - [ ] Deserialize data since keys are using different cases - IN PROGRESS
- - [ ] Style the table - IN PROGRESS
+ - [X] Deserialize data since keys are using different cases
+ - [X] Style the table - IN PROGRESS
  - [ ] Implement all required functionalities (CRUD essentially)
  - [ ] Test for bugs
+
+# Bonus
+
+Things that I'd like to add if I have time or feel like doing:
+ - [ ] Make components more generic
+ - [ ] Implement a # column to the tables which properly updates, but only itself gets updated, not entire DOM of the table
+
 
  [this repo]: https://github.com/ThePrimeagen/orgwasm
  [this project]: https://github.com/PegasusMKD/Integrated-Systems-Homework
