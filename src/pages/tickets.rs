@@ -12,6 +12,7 @@ async fn get_data(from_date: String, to_date: String) -> reqwest::Result<Vec<Tic
         .send()
         .await?;
     
+    leptos::log!("Getting the requested data...");
     if !request.status().is_success() {
         leptos::log!("Passed the get...");
         leptos::log!("Status: {:?}", request.status());
@@ -38,19 +39,29 @@ pub fn TicketItem(cx: Scope, idx: RwSignal<usize>, record: Ticket) -> impl IntoV
     }
 }
 
-// TODO: Maybe use #[component(transparent)] and return routes here instead of a direct view, since
-// depending on the action, we'd transfer them over to another page (aka CreateViewSlot,
-// EditViewSlot, etc.)
 #[component]
-pub fn TicketsPage(cx: Scope) -> impl IntoView {
-    // TODO: Add button to swap to "create" page
-    // TODO: Add table of ViewSlots, each with their own associated action
-  
-    let (from_date, set_from_date) = create_signal(cx, "".to_string());
-    let (to_date, set_to_date) = create_signal(cx, "".to_string());
-    let (trigger_filter, set_trigger_filter) = create_signal(cx, true);
-    let (data, set_data) = create_signal(cx, Vec::<Ticket>::new());
+pub fn FromToTicketsFilter(cx: Scope, trigger_filter: RwSignal<bool>, from_date: RwSignal<String>, to_date: RwSignal<String>) -> impl IntoView {
     
+    view! {cx,
+        <div class="rounded-lg border-2 border-neutral-600 flex-row pt-6 pl-4 pb-1 mb-5 shadow-xl">
+            <div class="flex flex-row pb-4">
+                <div>
+                <label for="from">From Date</label>
+                <input type="datetime-local" id="from" on:input=move |event| { from_date.set(event_target_value(&event)); } prop:value=move || { from_date.get() } class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                </div>
+                <div class="mx-4">
+                <label for="to">To Date</label>
+                <input type="datetime-local" id="to" on:input=move |event| { to_date.set(event_target_value(&event)); } prop:value=move || { to_date.get() } class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                </div>
+            </div>
+            <button on:click = move |_| { trigger_filter.set(!trigger_filter.get()); } class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Filter</button>
+        </div>
+
+    }
+}
+
+#[component]
+pub fn TicketsTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: RwSignal<String>, to_date: RwSignal<String>) -> impl IntoView {
     let resource: leptos::Resource<bool, Vec<Ticket>> = create_resource(cx, 
         move || trigger_filter.get(), 
         move |_| async move {
@@ -63,8 +74,8 @@ pub fn TicketsPage(cx: Scope) -> impl IntoView {
             }
         });
   
-    // So signals are essentially like useState in React
     let idx = create_rw_signal(cx, 0);
+    let (data, set_data) = create_signal(cx, Vec::<Ticket>::new());
 
     let tickets_data_table = move || {
         let value = resource.read(cx);
@@ -74,58 +85,57 @@ pub fn TicketsPage(cx: Scope) -> impl IntoView {
         };
         
         idx.set(0);
-        
-        view! {cx,
-            <For 
-                each = move || data.get()
-                key = |record: &Ticket| record.id
-                view = move |cx, record: Ticket| {
-                    view! { cx, <TicketItem record idx/> } 
-                }
-            />    
-        }
     };
 
+
+
+    view! {cx,
+        <Transition fallback=move || { view! {cx, <div></div> } }>
+            <table class="w-full flex-row text-sm text-center rounded-lg bordertext-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr class="border-y rounded-t-lg border-gray-800">
+                        <th scope="col" class="px-6 py-3">#</th>
+                        <th scope="col" class="px-6 py-3">Seat Number</th>
+                        <th scope="col" class="px-6 py-3">Price</th>
+                        <th scope="col" class="px-6 py-3">View Slot (Movie Name - Time Slot)</th>
+                        <th scope="col" class="px-6 py-3">Availability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    { tickets_data_table }                         
+                    <For 
+                        each = move || data.get()
+                        key = |record: &Ticket| record.id
+                        view = move |cx, record: Ticket| {
+                            view! { cx, <TicketItem record idx/> } 
+                        }
+                    />    
+                </tbody>
+            </table>
+        </Transition>
+    }
+}
+
+// TODO: Maybe use #[component(transparent)] and return routes here instead of a direct view, since
+// depending on the action, we'd transfer them over to another page (aka CreateViewSlot,
+// EditViewSlot, etc.)
+#[component]
+pub fn TicketsPage(cx: Scope) -> impl IntoView {
+    let from_date = create_rw_signal(cx, "".to_string());
+    let to_date = create_rw_signal(cx, "".to_string());
+    let trigger_filter = create_rw_signal(cx, true);
+    
+
     view! { cx,
-    <div class="h-screen w-full">
-        <div class="flex place-content-center">
-            // TODO: Add filters
-            <div class="w-3/4">
-                <h2 class="text-5xl font-semibold mb-4">Tickets</h2>
-                <div class="rounded-lg border-2 border-neutral-600 flex-row pt-6 pl-4 pb-1 mb-5 shadow-xl">
-                    //<div>
-                    <div class="flex flex-row pb-4">
-                        <div>
-                        <label for="from">From Date</label>
-                        <input type="datetime-local" id="from" on:input=move |event| { set_from_date.set(event_target_value(&event)); } prop:value=move || { from_date.get() } class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
-                        </div>
-                        <div class="mx-4">
-                        <label for="to">To Date</label>
-                        <input type="datetime-local" id="to" on:input=move |event| { set_to_date.set(event_target_value(&event)); } prop:value=move || { to_date.get() } class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
-                        </div>
-                    </div>
-                    <button on:click = move |_| { set_trigger_filter.set(!trigger_filter.get()); } class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Filter</button>
-                    //</div>
+        <div class="h-screen w-full">
+            <div class="flex place-content-center">
+                // TODO: Add filters
+                <div class="w-3/4">
+                    <h2 class="text-5xl font-semibold mb-4">Tickets</h2>
+                    <FromToTicketsFilter from_date to_date trigger_filter/>
+                    <TicketsTable from_date to_date trigger_filter/>
                 </div>
-                <Transition fallback=move || { view! {cx, <div></div> } }>
-                    <table class="w-full flex-row text-sm text-center rounded-lg bordertext-gray-500">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                            <tr class="border-y rounded-t-lg border-gray-800">
-                                <th scope="col" class="px-6 py-3">#</th>
-                                <th scope="col" class="px-6 py-3">Seat Number</th>
-                                <th scope="col" class="px-6 py-3">Price</th>
-                                <th scope="col" class="px-6 py-3">View Slot (Movie Name - Time Slot)</th>
-                                <th scope="col" class="px-6 py-3">Availability</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            { tickets_data_table }                         
-                        </tbody>
-                    </table>
-                </Transition>
             </div>
         </div>
-    </div>
-
     }
 }
