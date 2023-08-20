@@ -47,7 +47,7 @@ pub fn Body(cx: Scope, pagination: RwSignal<usize>) -> impl IntoView {
                     }/> 
               </Routes>
             </div>
-            </main>
+        </main>
         </div>
     }
 }
