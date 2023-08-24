@@ -33,12 +33,12 @@ pub fn FromToTicketsFilter(cx: Scope, trigger_filter: RwSignal<bool>, from_date:
         <div class="rounded-lg border-2 border-neutral-600 flex-row pt-6 pl-4 pb-1 mb-5 shadow-xl">
             <div class="flex flex-row pb-4">
                 <div>
-                <label for="from">From Date</label>
-                <input type="datetime-local" id="from" on:input=move |event| { from_date.set(event_target_value(&event)); } prop:value=move || { from_date.get() } class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                    <label for="from">From Date</label>
+                    <input type="datetime-local" id="from" on:input=move |event| { from_date.set(event_target_value(&event)); } prop:value=move || { from_date.get() } class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                 </div>
                 <div class="mx-4">
-                <label for="to">To Date</label>
-                <input type="datetime-local" id="to" on:input=move |event| { to_date.set(event_target_value(&event)); } prop:value=move || { to_date.get() } class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                    <label for="to">To Date</label>
+                    <input type="datetime-local" id="to" on:input=move |event| { to_date.set(event_target_value(&event)); } prop:value=move || { to_date.get() } class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-5 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                 </div>
             </div>
             <button on:click = move |_| { trigger_filter.set(!trigger_filter.get()); } class="mx-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Filter</button>

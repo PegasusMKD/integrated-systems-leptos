@@ -1,6 +1,7 @@
 use leptos::*;
 use leptos_router::*;
 
+use crate::services::fetch_genres;
 use crate::pages::tickets::TicketItem;
 use crate::models::{Ticket, Genre};
 
@@ -25,13 +26,6 @@ async fn filter_tickets_by_genre(genre: String) -> reqwest::Result<Vec<Ticket>> 
     
     response
         .json::<Vec<Ticket>>()
-        .await
-}
-
-async fn fetch_genres() -> reqwest::Result<Vec<Genre>> {
-    reqwest::get("https://localhost:44316/api/movie-genre")
-        .await?
-        .json::<Vec<Genre>>()
         .await
 }
 

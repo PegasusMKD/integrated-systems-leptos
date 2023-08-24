@@ -37,13 +37,17 @@ This should be a sufficient list for required changes
  - [X] Implement base template (header/footer/base body)
  - [X] Implement the Home Page
  - [ ] Implement the Index pages for each menu item in the navigation bar - IN PROGRESS
- - [ ] View Slot Index Page - IN PROGRESS
+ - [X] View Slot Index Page
+ - [X] View Slot Create Page
+ - [X] View Slot Edit Page
+ - [ ] Authentication - IN PROGRESS
+ - [ ] View Slot Tickets Pages
  - [X] Tickets Index Page
  - [X] Tickets Export Page (with all related functionality)
  - [X] Baseline the tickets page
  - [X] Connect directly to BE
  - [X] Deserialize data since keys are using different cases
- - [X] Style the table - IN PROGRESS
+ - [X] Style the table
  - [ ] Implement all required functionalities (CRUD essentially)
  - [ ] Test for bugs
 

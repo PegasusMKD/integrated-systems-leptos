@@ -37,6 +37,8 @@ leptos_router = { version = "0.4.8", default-features = false }
 serde-wasm-bindgen = "0.5.0"
 serde_repr = "0.1.16"
 atomic = "0.6.0"
+itertools = "0.11.0"
+web-time = "0.2.0"
 
 [dependencies.uuid]
 version = "1.4.1"
@@ -62,7 +64,9 @@ features = [
   "serde",
   "formatting",
   "parsing",
-  "macros"
+  "macros",
+  "wasm-bindgen",
+  "local-offset"
 ]
 
 [features]

@@ -3,7 +3,7 @@ use leptos_router::*;
 
 use crate::pages::home::HomePage;
 use crate::pagination::PaginationBar;
-use crate::pages::view_slots::ViewSlotsPage;
+use crate::pages::view_slots::ViewSlotPage;
 use crate::pages::tickets::TicketsPage;
 
 #[component]
@@ -29,10 +29,9 @@ pub fn Body(cx: Scope, pagination: RwSignal<usize>) -> impl IntoView {
                         cx,
                         <p>Shopping Cart</p>
                     }/>
-                    <Route path="/view-slots" view=move |cx| view! {
-                        cx,
-                        <ViewSlotsPage/>
-                    }/>
+                    <Route path="/view-slots" view=Outlet>
+                        <ViewSlotPage/>
+                    </Route>
                     <Route path="/tickets" view=Outlet>
                         <TicketsPage/>   
                     </Route>
