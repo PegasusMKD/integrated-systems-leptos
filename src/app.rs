@@ -9,9 +9,9 @@ use crate::components::body::Body;
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
     provide_meta_context(cx);
-
-    let pagination = create_rw_signal(cx, 0);
-
+    
+    let log_in_trigger = create_trigger(cx);
+    
     view! {
         cx,
         <meta charset="utf-8" />
@@ -21,8 +21,8 @@ pub fn App(cx: Scope) -> impl IntoView {
         <Stylesheet id="custom-css" href="/style/site.css"/>
         <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
         <Router>
-            <Header/>
-            <Body pagination/>
+            <Header log_in_trigger/>
+            <Body log_in_trigger/>
             <Footer/>
         </Router>
     }

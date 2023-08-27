@@ -1,9 +1,12 @@
+use reqwest::RequestBuilder;
 use uuid::Uuid;
 use serde::*;
 use serde_repr::*;
 use time::{PrimitiveDateTime, macros::format_description};
 use std::{fmt, str::FromStr};
 use crate::constants::*;
+
+use gloo_storage::{LocalStorage, Storage};
 
 time::serde::format_description!(standard_format, PrimitiveDateTime, DATE_TIME_FORMAT);
 
@@ -140,5 +143,65 @@ impl Genre {
         genres.iter()
             .filter(|gen| gen.name == genre).nth(0)
             .unwrap().clone()
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct LoginDetails {
+    pub email: String,
+    pub password: String
+}
+
+impl LoginDetails {
+    
+    pub fn new(email: String, password: String) -> LoginDetails {
+        LoginDetails { email, password }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct UserDetails {
+    pub token: String,
+    pub expiration: String,
+    pub roles: Vec<String>,
+
+    #[serde(alias = "userName")]
+    pub username: String
+}
+
+impl UserDetails {
+    
+    pub fn save(self) {
+        LocalStorage::set("token", self.token).unwrap();
+        LocalStorage::set("username", self.username).unwrap();
+        LocalStorage::set("roles", self.roles).unwrap();
+    }
+
+    pub fn read_detail(key: String) -> String {
+        LocalStorage::get(key).unwrap()
+    }
+
+    pub fn delete() {
+        LocalStorage::delete("token");
+        LocalStorage::delete("username");
+        LocalStorage::delete("roles");
+    }
+
+    pub fn user_logged_in() -> bool {
+        let token: gloo_storage::Result<String> = LocalStorage::get("token");
+        let username: gloo_storage::Result<String> = LocalStorage::get("username");
+        let roles: gloo_storage::Result<Vec<String>> = LocalStorage::get("roles");
+        
+        return !(token.is_err() || username.is_err() || roles.is_err());
+    }
+}
+
+pub trait BearerRequestBuilder {
+    fn add_token(self) -> Self;
+}
+
+impl BearerRequestBuilder for RequestBuilder {
+    fn add_token(self) -> Self {
+        self.bearer_auth(UserDetails::read_detail("token".to_string()))
     }
 }

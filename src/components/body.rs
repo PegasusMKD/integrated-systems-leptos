@@ -6,8 +6,11 @@ use crate::pagination::PaginationBar;
 use crate::pages::view_slots::ViewSlotPage;
 use crate::pages::tickets::TicketsPage;
 
+use crate::pages::login::LoginPage;
+// use crate::pages::register::RegisterPage;
+
 #[component]
-pub fn Body(cx: Scope, pagination: RwSignal<usize>) -> impl IntoView {
+pub fn Body(cx: Scope, log_in_trigger: Trigger) -> impl IntoView {
     view! {
         cx,
         <div class="w-full h-full">
@@ -16,11 +19,10 @@ pub fn Body(cx: Scope, pagination: RwSignal<usize>) -> impl IntoView {
                 <Routes>
                     <Route path="" view=move |cx| view! {
                         cx,
-                        <PaginationBar count={14} signal={pagination}/>
-                        {move || {
-                            pagination.get()
-                        }}
+                        <div>Hellooooo</div>
                     }/>
+                   <Route path="/login" view=move |cx| { view! {cx, <LoginPage trigger={log_in_trigger}/> } }/>
+   //                <Route path="/register" view=RegisterPage/>
                    <Route path="/home" view=move |cx| view! {
                         cx,
                         <HomePage/>

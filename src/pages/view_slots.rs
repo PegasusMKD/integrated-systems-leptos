@@ -28,7 +28,7 @@ pub fn ViewSlotItem(cx: Scope, record: ViewSlot) -> impl IntoView {
             </p>
           </div>
           <div class="px-6 pt-4 pb-2 bg-gray-200">
-            <A href={ format!("ticket/{}", record.id.map(|uid| uid.to_string()).unwrap_or("".to_string())) }><button class="mx-2 text-white bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-sky-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-sky-600 dark:hover:bg-sky-700 focus:outline-none dark:focus:ring-sky-800">View tickets</button></A>
+            <A href={ format!("tickets/{}", record.id.map(|uid| uid.to_string()).unwrap_or("".to_string())) }><button class="mx-2 text-white bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:ring-sky-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-sky-600 dark:hover:bg-sky-700 focus:outline-none dark:focus:ring-sky-800">View tickets</button></A>
             <A href={ format!("edit/{}", record.id.map(|uid| uid.to_string()).unwrap_or("".to_string())) }><button class="mx-2 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">Edit view slot</button></A>
             <span class="inline-block bg-gray-300 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{record.genre.unwrap_or(Genre::new()).name}</span>
           </div>

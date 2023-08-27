@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a27bb2d-ecf6-40c9-9392-1db5d8746775" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/body.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/body.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/models.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/tickets/export.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/tickets/export.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/tickets/index.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/tickets/index.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/view_slots.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/view_slots.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/style/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/style/output.css" afterDir="false" />
-    </list>
+    <list default="true" id="0a27bb2d-ecf6-40c9-9392-1db5d8746775" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,6 +40,7 @@
       <updated>1692827611234</updated>
       <workItem from="1692827612382" duration="73000" />
       <workItem from="1692827704669" duration="137000" />
+      <workItem from="1692863999057" duration="97000" />
     </task>
     <servers />
   </component>

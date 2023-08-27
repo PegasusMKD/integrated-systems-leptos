@@ -2,7 +2,7 @@ use leptos::*;
 use leptos_router::{use_navigate, NavigateOptions};
 use time::{PrimitiveDateTime, OffsetDateTime};
 
-use crate::models::{ViewSlot, Genre};
+use crate::models::{ViewSlot, Genre, BearerRequestBuilder};
 
 use crate::services::fetch_genres;
 use time::format_description;
@@ -11,6 +11,7 @@ async fn create_view_slot(view_slot: ViewSlot) -> reqwest::Result<()> {
     let client = reqwest::Client::new();
     let request = client.post("https://localhost:44316/api/view-slot")
         .json(&view_slot)
+        .add_token()
         .send()
         .await?;
 
