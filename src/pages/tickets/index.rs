@@ -7,7 +7,9 @@ use crate::models::{Ticket, FilterTicketsByDates};
 // TODO: Add proper error handling with status_code checks and custom errors (probably)
 async fn filter_tickets_by_date(from_date: String, to_date: String) -> reqwest::Result<Vec<Ticket>> {
     // Make this the official return after getting some data in the database
+    leptos::log!("Logged first!!!");
     let data = FilterTicketsByDates::new(from_date, to_date);
+    leptos::log!("Called lol");
     let client = reqwest::Client::new();
     let request = client.post("https://localhost:44316/api/ticket/filter")
         .json(&data)
@@ -42,7 +44,7 @@ pub fn FromToTicketsFilter(cx: Scope, trigger_filter: RwSignal<bool>, from_date:
                 </div>
             </div>
             <button on:click = move |_| { trigger_filter.set(!trigger_filter.get()); } class="mx-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Filter</button>
-            <A href="/tickets/export"><button on:click = move |_| {  } class="mx-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">Export</button></A>
+            <A href="/tickets/export"><button class="mx-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">Export</button></A>
         </div>
 
     }
@@ -51,8 +53,11 @@ pub fn FromToTicketsFilter(cx: Scope, trigger_filter: RwSignal<bool>, from_date:
 #[component]
 pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: RwSignal<String>, to_date: RwSignal<String>) -> impl IntoView {
     let resource: leptos::Resource<bool, Vec<Ticket>> = create_resource(cx, 
-        move || trigger_filter.get(), 
+        move || {
+            trigger_filter.get()
+        }, 
         move |_| async move {
+            leptos::log!("here 222");
             match filter_tickets_by_date(from_date.get_untracked(), to_date.get_untracked()).await {
                 Ok(data) => data,
                 Err(err) => {
@@ -61,7 +66,7 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
                 }
             }
         });
-  
+    
     // let idx = create_rw_signal(cx, 0);
     let (data, set_data) = create_signal(cx, Vec::<Ticket>::new());
 
@@ -76,9 +81,9 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
     };
 
 
-
     view! {cx,
         <Transition fallback=move || { view! {cx, <div></div> } }>
+            <ErrorBoundary fallback=|cx, errors| view!{ cx, <div>{format!("{:?}", errors.get())}</div>}.into_view(cx)>
             <table class="w-full flex-row text-sm text-center rounded-lg bordertext-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr class="border-y rounded-t-lg border-gray-800">
@@ -90,16 +95,17 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
                     </tr>
                 </thead>
                 <tbody>
-                    { tickets_data_table }                         
                     <For 
                         each = move || data.get()
                         key = |record: &Ticket| record.id
                         view = move |cx, record: Ticket| {
-                            view! { cx, <TicketItem record/> } 
+                           view! { cx, <TicketItem record actions=false refresh_trigger=None/> } 
                         }
-                    />    
+                    />
+                    { tickets_data_table }
                 </tbody>
             </table>
+            </ErrorBoundary>
         </Transition>
     }
 }
@@ -108,7 +114,7 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
 pub fn TicketsIndexPage(cx:Scope) -> impl IntoView {
     let from_date = create_rw_signal(cx, "".to_string());
     let to_date = create_rw_signal(cx, "".to_string());
-    let trigger_filter = create_rw_signal(cx, true);
+    let trigger_filter = create_rw_signal(cx, false);
 
     view! {cx,
         <FromToTicketsFilter from_date to_date trigger_filter/>

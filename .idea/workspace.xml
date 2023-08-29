@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a27bb2d-ecf6-40c9-9392-1db5d8746775" name="Changes" comment="" />
+    <list default="true" id="0a27bb2d-ecf6-40c9-9392-1db5d8746775" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/tickets.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/tickets.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/tickets/export.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/tickets/export.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/tickets/index.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/tickets/index.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/view_slots.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/view_slots.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/view_slots/edit.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/view_slots/edit.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/view_slots/tickets.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/view_slots/tickets.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/style/output.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,15 +30,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Programming/Rust",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="integrated-systems-ui" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="integrated-systems-ui" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -41,6 +66,7 @@
       <workItem from="1692827612382" duration="73000" />
       <workItem from="1692827704669" duration="137000" />
       <workItem from="1692863999057" duration="97000" />
+      <workItem from="1693177590026" duration="83000" />
     </task>
     <servers />
   </component>

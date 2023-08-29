@@ -2,7 +2,6 @@ use leptos::*;
 use leptos_router::*;
 
 use crate::pages::home::HomePage;
-use crate::pagination::PaginationBar;
 use crate::pages::view_slots::ViewSlotPage;
 use crate::pages::tickets::TicketsPage;
 
