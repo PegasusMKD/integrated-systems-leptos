@@ -5,6 +5,7 @@ use time::format_description;
 use crate::models::{ViewSlot, Genre, BearerRequestBuilder};
 
 use crate::services::fetch_genres;
+use super::get_view_slot;
 
 async fn update_view_slot(view_slot: ViewSlot) -> reqwest::Result<()> {
     let client = reqwest::Client::new();
@@ -23,22 +24,6 @@ async fn update_view_slot(view_slot: ViewSlot) -> reqwest::Result<()> {
     return Ok(());
 }
 
-async fn get_view_slot(id: String) -> reqwest::Result<ViewSlot> {
-   let client = reqwest::Client::new();
-    let request = client.get(format!("https://localhost:44316/api/view-slot/{id}"))
-        .send()
-        .await?;
-
-    leptos::log!("Getting the requested data...");
-    if !request.status().is_success() {
-        leptos::log!("Passed the get...");
-        leptos::log!("Status: {:?}", request.status());
-    }
-    
-    request
-        .json::<ViewSlot>()
-        .await 
-}
 
 #[component]
 pub fn ViewSlotEditPage(cx: Scope) -> impl IntoView {

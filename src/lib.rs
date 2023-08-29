@@ -1,5 +1,4 @@
 mod app;
-pub mod pagination;
 pub mod pages;
 pub mod components;
 pub mod models;
@@ -12,7 +11,6 @@ cfg_if! {
     if #[cfg(feature = "hydrate")] {
         use wasm_bindgen::prelude::wasm_bindgen;
         use crate::app::*;
-        use crate::pagination::*;
         use crate::pages::home::*;
         use leptos::*;
 

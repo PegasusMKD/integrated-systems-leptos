@@ -1,7 +1,6 @@
 mod app;
 pub mod pages;
 pub mod components;
-pub mod pagination;
 pub mod models;
 pub mod constants;
 pub mod services;

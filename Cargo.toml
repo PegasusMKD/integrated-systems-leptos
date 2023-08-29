@@ -1,6 +1,6 @@
 [package]
-name = "tailwind"
-version = "0.4.8"
+name = "integrated-systems-leptos"
+version = "1.0.0"
 edition = "2021"
 
 [lib]
@@ -30,7 +30,7 @@ actix-files = { version = "0.6", optional = true }
 actix-web = { version = "4", features = ["macros"], optional = true }
 futures = { version = "0.3", optional = true }
 simple_logger = { version = "4.0", optional = true }
-leptos = { version = "0.4.8", default-features = false }
+leptos = { version = "0.4.9", default-features = false }
 leptos_actix = { version = "0.4.8", optional = true }
 leptos_meta = { version = "0.4.8", default-features = false }
 leptos_router = { version = "0.4.8", default-features = false }

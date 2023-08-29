@@ -126,7 +126,7 @@ pub fn TicketsExportTable(cx: Scope, trigger_filter: RwSignal<bool>, genre: RwSi
                         each = move || data.get()
                         key = |record: &Ticket| record.id
                         view = move |cx, record: Ticket| {
-                            view! { cx, <TicketItem record/> } 
+                            view! { cx, <TicketItem record actions=false refresh_trigger=None/> } 
                         }
                     />    
                 </tbody>

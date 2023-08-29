@@ -90,6 +90,14 @@ pub struct Ticket {
     pub ticket_status: TicketStatus    
 }
 
+impl Ticket {
+   
+    // Serves as simple new empty ticket for now
+    pub fn new() -> Ticket {
+        Ticket { id: Uuid::new_v4(), seat_number: "".to_string(), price: 0.0, view_slot: ViewSlot::new(), ticket_status: TicketStatus::Available }
+    }
+}
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FilterTicketsByDates {
     #[serde(rename(serialize = "fromTimeSlot"), with = "standard_format::option")]

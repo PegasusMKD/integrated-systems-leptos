@@ -9,8 +9,28 @@ mod tickets;
 
 use crate::models::{ViewSlot, Genre};
 
-use crate::pages::view_slots::{index::ViewSlotIndexPage, create::ViewSlotCreatePage, edit::ViewSlotEditPage, tickets::ViewSlotTicketsPage };
+use crate::pages::view_slots::{
+    index::ViewSlotIndexPage, create::ViewSlotCreatePage, edit::ViewSlotEditPage, tickets::{
+        index::ViewSlotTicketsPage, edit::ViewSlotTicketsEditPage, create::ViewSlotTicketsCreatePage, create_multiple::ViewSlotTicketsCreateMultiplePage 
+    } 
+};
 
+pub async fn get_view_slot(id: String) -> reqwest::Result<ViewSlot> {
+   let client = reqwest::Client::new();
+    let request = client.get(format!("https://localhost:44316/api/view-slot/{id}"))
+        .send()
+        .await?;
+
+    leptos::log!("Getting the requested data...");
+    if !request.status().is_success() {
+        leptos::log!("Passed the get...");
+        leptos::log!("Status: {:?}", request.status());
+    }
+    
+    request
+        .json::<ViewSlot>()
+        .await 
+}
 
 #[component]
 pub fn ViewSlotItem(cx: Scope, record: ViewSlot) -> impl IntoView {
@@ -64,7 +84,12 @@ pub fn ViewSlotPage(cx: Scope) -> impl IntoView {
             <Route path="/" view=ViewSlotIndexPage/>
             <Route path="/create" view=ViewSlotCreatePage/>
             <Route path="/edit/:id" view=ViewSlotEditPage/>
-            <Route path="/tickets/:id" view=ViewSlotTicketsPage/>
+            <Route path="/tickets/:id" view=Outlet>
+                <Route path="" view=ViewSlotTicketsPage/>
+                <Route path="/edit/:ticket_id" view=ViewSlotTicketsEditPage/>
+                <Route path="/create" view=ViewSlotTicketsCreatePage/>
+                <Route path="/create-multiple" view=ViewSlotTicketsCreateMultiplePage/>
+            </Route>
         </Route>
     }
 }
