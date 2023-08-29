@@ -53,12 +53,20 @@ pub fn FromToTicketsFilter(cx: Scope, trigger_filter: RwSignal<bool>, from_date:
 #[component]
 pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: RwSignal<String>, to_date: RwSignal<String>) -> impl IntoView {
     let resource: leptos::Resource<bool, Vec<Ticket>> = create_resource(cx, 
-        move || {
-            trigger_filter.get()
-        }, 
+        move || trigger_filter.get(), 
         move |_| async move {
-            leptos::log!("here 222");
-            match filter_tickets_by_date(from_date.get_untracked(), to_date.get_untracked()).await {
+            let f_date = match from_date.try_get() {
+                Some(date) => date,
+                None => "".to_string()
+            };
+            
+            let t_date = match to_date.try_get() {
+                Some(date) => date,
+                None => "".to_string()
+            };
+
+
+            match filter_tickets_by_date(f_date, t_date).await {
                 Ok(data) => data,
                 Err(err) => {
                     leptos::log!("[Tickets Page] Error doing a request to fetch tickets: {:?}", err);
@@ -67,7 +75,6 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
             }
         });
     
-    // let idx = create_rw_signal(cx, 0);
     let (data, set_data) = create_signal(cx, Vec::<Ticket>::new());
 
     let tickets_data_table = move || {
@@ -76,8 +83,6 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
             None => set_data.set(Vec::new()),
             Some(val) => set_data.set(val)
         };
-        
-        // idx.set(0);
     };
 
 
@@ -112,8 +117,8 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
 
 #[component]
 pub fn TicketsIndexPage(cx:Scope) -> impl IntoView {
-    let from_date = create_rw_signal(cx, "".to_string());
-    let to_date = create_rw_signal(cx, "".to_string());
+    let from_date = create_rw_signal(cx, String::new());
+    let to_date = create_rw_signal(cx, String::new());
     let trigger_filter = create_rw_signal(cx, false);
 
     view! {cx,
