@@ -40,14 +40,18 @@ This should be a sufficient list for required changes
  - [X] View Slot Index Page
  - [X] View Slot Create Page
  - [X] View Slot Edit Page
- - [ ] Authentication - IN PROGRESS
- - [ ] View Slot Tickets Pages
+ - [X] Authentication
+ - [X] View Slot Tickets Pages
  - [X] Tickets Index Page
  - [X] Tickets Export Page (with all related functionality)
  - [X] Baseline the tickets page
  - [X] Connect directly to BE
  - [X] Deserialize data since keys are using different cases
  - [X] Style the table
+ - [ ] Implement "Shopping Cart Index Page"
+ - [ ] Implement Stripe (https://docs.rs/stripe-rust/latest/stripe/)
+ - [ ] Implement Orders pages
+ - [ ] Implement Users Management page
  - [ ] Implement all required functionalities (CRUD essentially)
  - [ ] Test for bugs
 
@@ -56,6 +60,8 @@ This should be a sufficient list for required changes
 Things that I'd like to add if I have time or feel like doing:
  - [ ] Make components more generic
  - [ ] Implement a # column to the tables which properly updates, but only itself gets updated, not entire DOM of the table
+ - [ ] Re-organize the code-base to be easier to navigate and access structs/traits/impls
+ - [ ] Add "redirects" if user is not authenticated
 
 
  [this repo]: https://github.com/ThePrimeagen/orgwasm
