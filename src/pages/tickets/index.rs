@@ -95,6 +95,7 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
                     </tr>
                 </thead>
                 <tbody>
+                    { tickets_data_table }
                     <For 
                         each = move || data.get()
                         key = |record: &Ticket| record.id
@@ -102,7 +103,6 @@ pub fn TicketsIndexTable(cx: Scope, trigger_filter: RwSignal<bool>, from_date: R
                            view! { cx, <TicketItem record actions=false refresh_trigger=None/> } 
                         }
                     />
-                    { tickets_data_table }
                 </tbody>
             </table>
             </ErrorBoundary>
