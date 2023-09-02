@@ -4,8 +4,6 @@ use leptos_router::*;
 mod index;
 mod export;
 
-use uuid::Uuid;
-
 use crate::models::{Ticket, TicketStatus, BearerRequestBuilder};
 
 use crate::pages::tickets::{index::TicketsIndexPage, export::TicketsExportPage};
@@ -110,7 +108,6 @@ pub fn TicketItem(cx: Scope, record: Ticket, actions: bool, refresh_trigger: Opt
 
 #[component]
 pub fn TicketsBaseTemplate(cx:Scope) -> impl IntoView {
-
     view! {cx,
         <div class="h-screen w-full">
             <div class="flex place-content-center">

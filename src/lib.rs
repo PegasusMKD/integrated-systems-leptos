@@ -4,6 +4,7 @@ pub mod components;
 pub mod models;
 pub mod constants;
 pub mod services;
+pub mod utils;
 
 use cfg_if::cfg_if;
 
@@ -11,7 +12,6 @@ cfg_if! {
     if #[cfg(feature = "hydrate")] {
         use wasm_bindgen::prelude::wasm_bindgen;
         use crate::app::*;
-        use crate::pages::home::*;
         use leptos::*;
 
         #[wasm_bindgen]

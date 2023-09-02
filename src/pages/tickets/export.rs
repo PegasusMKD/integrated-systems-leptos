@@ -1,5 +1,4 @@
 use leptos::*;
-use leptos_router::*;
 
 use crate::services::fetch_genres;
 use crate::pages::tickets::TicketItem;

@@ -204,6 +204,47 @@ impl UserDetails {
     }
 }
 
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Cart {
+    pub tickets: Vec<Ticket>
+}
+
+impl Cart {
+    pub fn new() -> Cart {
+        Cart { tickets: Vec::new() }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct CreateOrder {
+    pub name: String,
+
+    #[serde(rename(serialize = "expirationMonth", deserialize = "expirationMonth"))]
+    pub expiration_month: u8,
+
+    #[serde(rename(serialize = "expirationYear", deserialize = "expirationYear"))]
+    pub expiration_year: u16,
+
+    #[serde(rename(serialize = "cardNumber", deserialize = "cardNumber"))]
+    pub card_number: u64,
+    
+    pub cvc: String
+}
+
+impl CreateOrder {
+
+    pub fn new(name: String, date: String, cvc: String, card_number: String) -> CreateOrder {
+        leptos::log!("Card Number: {}", card_number);
+        let c_number = card_number.trim().parse::<u64>().unwrap();
+        leptos::log!("Date: {}", date);
+        let mut date_values = date.split("/").map(|val| val.trim().parse::<u8>().unwrap());
+        let expiration_month = date_values.next().unwrap();
+        let expiration_year = date_values.next().unwrap() as u16 + 2000;
+        CreateOrder { name, expiration_month, expiration_year, card_number: c_number, cvc }
+    }
+}
+
+
 pub trait BearerRequestBuilder {
     fn add_token(self) -> Self;
 }

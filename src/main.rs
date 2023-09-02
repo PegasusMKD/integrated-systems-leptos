@@ -4,6 +4,7 @@ pub mod components;
 pub mod models;
 pub mod constants;
 pub mod services;
+pub mod utils;
 
 use cfg_if::cfg_if;
 
