@@ -4,3 +4,4 @@ pub mod tickets;
 pub mod login;
 pub mod register;
 pub mod shopping_cart;
+pub mod orders;

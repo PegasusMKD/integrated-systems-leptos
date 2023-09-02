@@ -245,6 +245,19 @@ impl CreateOrder {
 }
 
 
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Order {
+    #[serde(alias = "guid")]
+    pub id: Uuid,
+
+    #[serde(alias = "orderNumber")]
+    pub order_number: u32,
+
+    #[serde(alias = "totalPrice")]
+    pub total_price: f32
+}
+
+
 pub trait BearerRequestBuilder {
     fn add_token(self) -> Self;
 }
