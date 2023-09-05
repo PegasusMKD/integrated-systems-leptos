@@ -15,9 +15,11 @@ use crate::pages::view_slots::{
     } 
 };
 
+use crate::constants::CONFIG;
+
 pub async fn get_view_slot(id: String) -> reqwest::Result<ViewSlot> {
    let client = reqwest::Client::new();
-    let request = client.get(format!("https://localhost:44316/api/view-slot/{id}"))
+    let request = client.get(format!("{}/view-slot/{id}", CONFIG.api.path))
         .send()
         .await?;
 

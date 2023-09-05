@@ -7,9 +7,11 @@ use crate::models::{ViewSlot, Genre, BearerRequestBuilder};
 use crate::services::fetch_genres;
 use super::get_view_slot;
 
+use crate::constants::CONFIG;
+
 async fn update_view_slot(view_slot: ViewSlot) -> reqwest::Result<()> {
     let client = reqwest::Client::new();
-    let request = client.put("https://localhost:44316/api/view-slot")
+    let request = client.put(format!("{}/view-slot", CONFIG.api.path))
         .json(&view_slot)
         .add_token()
         .send()

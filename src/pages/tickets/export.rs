@@ -4,12 +4,14 @@ use crate::services::fetch_genres;
 use crate::pages::tickets::TicketItem;
 use crate::models::{Ticket, Genre};
 
+use crate::constants::CONFIG;
+
 async fn filter_tickets_by_genre(genre: String) -> reqwest::Result<Vec<Ticket>> {
     // Make this the official return after getting some data in the database
     //let data = FilterTickets::new(from_date, to_date);
     let client = reqwest::Client::new();
     leptos::log!("Data is {:?}", genre);
-    let mut request = client.get("https://localhost:44316/api/ticket/by-genre");
+    let mut request = client.get(format!("{}/ticket/by-genre", CONFIG.api.path));
     if !genre.is_empty() {
         request = request
         .query(&[("genre", genre)]);
@@ -71,7 +73,7 @@ pub fn GenreFilter(cx: Scope, trigger_filter: RwSignal<bool>, genre: RwSignal<St
                     </div>
                 </div>
                 <button on:click = move |_| { trigger_filter.set(!trigger_filter.get()); } class="mx-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Filter</button>
-                <a href=move || {format!("https://localhost:44316/api/ticket/excel{}",if genre.get().is_empty() { "".to_string() } else { format!("?genre={}", genre.get()) })} download=""><button class="mx-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">Export XLSX</button></a>
+                <a href=move || {format!("{}/ticket/excel{}", CONFIG.api.path, if genre.get().is_empty() { "".to_string() } else { format!("?genre={}", genre.get()) })} download=""><button class="mx-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">Export XLSX</button></a>
             </div>
         </Transition>
     }

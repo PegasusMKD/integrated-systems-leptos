@@ -19,16 +19,10 @@ pub fn Body(cx: Scope, log_in_trigger: Trigger) -> impl IntoView {
             <main role="main">
                 <div class="min-h-screen mx-auto mt-6">
                 <Routes>
-                    <Route path="" view=move |cx| view! {
-                        cx,
-                        <div>Hellooooo</div>
-                    }/>
+                    <Route path="" view=HomePage/>
                    <Route path="/login" view=move |cx| { view! {cx, <LoginPage trigger={log_in_trigger}/> } }/>
    //                <Route path="/register" view=RegisterPage/>
-                   <Route path="/home" view=move |cx| view! {
-                        cx,
-                        <HomePage/>
-                    }/>
+                   <Route path="/home" view=HomePage/>
                     <Route path="/shopping-cart" view=ShoppingCartPage/>
                     <Route path="/view-slots" view=Outlet>
                         <ViewSlotPage/>

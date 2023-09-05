@@ -3,11 +3,13 @@ use leptos_router::{use_navigate, NavigateOptions};
 
 use crate::models::{LoginDetails, UserDetails};
 
+use crate::constants::CONFIG;
+
 async fn login(email: String, password: String) -> reqwest::Result<UserDetails> {
     let login_details = LoginDetails::new(email, password);
 
     let client = reqwest::Client::new();
-    let request = client.post("https://localhost:44316/api/auth/login")
+    let request = client.post(format!("{}/auth/login", CONFIG.api.path))
                     .json(&login_details)
                     .send()
                     .await?;

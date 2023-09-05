@@ -2,9 +2,11 @@ use leptos::*;
 
 use crate::models::{BearerRequestBuilder, Order};
 
+use crate::constants::CONFIG;
+
 async fn get_orders_by_user() -> reqwest::Result<Vec<Order>> {
     let client = reqwest::Client::new();
-    let request = client.get("https://localhost:44316/api/order/by-user")
+    let request = client.get(format!("{}/order/by-user", CONFIG.api.path))
         .add_token()
         .send()
         .await?;
@@ -21,7 +23,7 @@ async fn get_orders_by_user() -> reqwest::Result<Vec<Order>> {
 
 #[component]
 pub fn OrderRow(cx: Scope, record: Order) -> impl IntoView {
-    let pdf_url = format!("https://localhost:44316/api/order/invoice/{}", record.id);
+    let pdf_url = format!("{}/order/invoice/{}", CONFIG.api.path, record.id);
     view! {
         cx,
         <tr class="border-b bg-white border-gray-300 hover:bg-gray-50">

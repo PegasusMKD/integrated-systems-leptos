@@ -4,6 +4,8 @@ use leptos_router::A;
 use crate::pages::tickets::TicketItem;
 use crate::models::{Ticket, FilterTicketsByDates, UserDetails};
 
+use crate::constants::CONFIG;
+
 // TODO: Add proper error handling with status_code checks and custom errors (probably)
 async fn filter_tickets_by_date(from_date: String, to_date: String) -> reqwest::Result<Vec<Ticket>> {
     // Make this the official return after getting some data in the database
@@ -11,7 +13,7 @@ async fn filter_tickets_by_date(from_date: String, to_date: String) -> reqwest::
     let data = FilterTicketsByDates::new(from_date, to_date);
     leptos::log!("Called lol");
     let client = reqwest::Client::new();
-    let request = client.post("https://localhost:44316/api/ticket/filter")
+    let request = client.post(format!("{}/ticket/filter", CONFIG.api.path))
         .json(&data)
         .send()
         .await?;

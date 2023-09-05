@@ -5,10 +5,12 @@ use super::ViewSlotItem;
 
 use crate::models::ViewSlot;
 
+use crate::constants::CONFIG;
+
 // TODO: Add proper error handling with status_code checks and custom errors (probably)
 async fn fetch_view_slots() -> reqwest::Result<Vec<ViewSlot>> {
     // Make this the official return after getting some data in the database
-    let request = reqwest::get("https://localhost:44316/api/view-slot")
+    let request = reqwest::get(format!("{}/view-slot", CONFIG.api.path))
         .await?;
     
     leptos::log!("Getting the requested data...");

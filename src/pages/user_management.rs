@@ -9,10 +9,11 @@ use crate::models::{User, BearerRequestBuilder};
 
 use crate::pages::user_management::{index::UsersIndexPage, import::UsersImportPage, edit::UsersEditPage};
 
+use crate::constants::CONFIG;
 
 async fn delete_user(ticket: String) -> reqwest::Result<()> {
     let client = reqwest::Client::new();
-    let request = client.delete(format!("https://localhost:44316/api/users/{}", ticket))
+    let request = client.delete(format!("{}/users/{}", CONFIG.api.path, ticket))
         .add_token()
         .send()
         .await?;

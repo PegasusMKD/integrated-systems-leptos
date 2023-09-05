@@ -6,6 +6,8 @@ use leptos_router::{use_navigate, NavigateOptions};
 
 use crate::models::UserDetails;
 
+use crate::constants::CONFIG;
+
 pub async fn upload_file(event: ev::SubmitEvent) {
     event.prevent_default();
     let event_data = event
@@ -18,7 +20,7 @@ pub async fn upload_file(event: ev::SubmitEvent) {
     leptos::log!("Data: {:?}", form_data.get("file"));
     let token_data = format!("Bearer {}", UserDetails::read_detail("token".to_string()));
 
-    let _ = Request::post("https://localhost:44316/api/users/import/leptos")
+    let _ = Request::post(format!("{}/users/import/leptos", CONFIG.api.path).as_str())
         .body(form_data)
         .header("Authorization", &token_data)
         .send()

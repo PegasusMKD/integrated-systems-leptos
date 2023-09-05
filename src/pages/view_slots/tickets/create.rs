@@ -4,11 +4,13 @@ use super::TicketUpdateEvent;
 
 use leptos_router::{use_params_map, NavigateOptions, use_navigate};
 
+use crate::constants::CONFIG;
+
 async fn create_ticket_for_view_slot(view_slot: String, price: String) -> reqwest::Result<()> {
     let payload = TicketUpdateEvent::create(view_slot, price.parse::<i32>().unwrap());
 
     let client = reqwest::Client::new();
-    let request = client.post("https://localhost:44316/api/ticket")
+    let request = client.post(format!("{}/ticket", CONFIG.api.path))
                     .json(&payload)
                     .send()
                     .await?;

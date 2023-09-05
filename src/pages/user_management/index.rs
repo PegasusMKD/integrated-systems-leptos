@@ -5,11 +5,13 @@ use leptos_router::A;
 use super::UserRow;
 use crate::models::{User, BearerRequestBuilder};
 
+use crate::constants::CONFIG;
+
 // TODO: Add proper error handling with status_code checks and custom errors (probably)
 async fn get_users() -> reqwest::Result<Vec<User>> {
     // Make this the official return after getting some data in the database
     let client = reqwest::Client::new();
-    let request = client.get("https://localhost:44316/api/users")
+    let request = client.get(format!("{}/users", CONFIG.api.path))
         .add_token()
         .send()
         .await?;

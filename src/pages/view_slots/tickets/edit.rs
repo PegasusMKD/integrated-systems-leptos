@@ -6,11 +6,13 @@ use crate::models::Ticket;
 
 use leptos_router::{use_params_map, NavigateOptions, use_navigate};
 
+use crate::constants::CONFIG;
+
 async fn update_ticket_for_view_slot(id: String, view_slot: String, price: String) -> reqwest::Result<()> {
     let payload = TicketUpdateEvent::update(id, view_slot, price.parse::<i32>().unwrap());
 
     let client = reqwest::Client::new();
-    let request = client.put("https://localhost:44316/api/ticket")
+    let request = client.put(format!("{}/ticket", CONFIG.api.path))
                     .json(&payload)
                     .send()
                     .await?;
@@ -28,7 +30,7 @@ async fn update_ticket_for_view_slot(id: String, view_slot: String, price: Strin
 
 pub async fn get_ticket(id: String) -> reqwest::Result<Ticket> {
    let client = reqwest::Client::new();
-    let request = client.get(format!("https://localhost:44316/api/ticket/{id}"))
+    let request = client.get(format!("{}/ticket/{id}", CONFIG.api.path))
         .send()
         .await?;
 

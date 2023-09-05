@@ -8,10 +8,12 @@ use time::format_description;
 
 use super::super::get_view_slot;
 
+use crate::constants::CONFIG;
+
 // TODO: Add proper error handling with status_code checks and custom errors (probably)
 async fn filter_tickets_by_view_slot(view_slot: String) -> reqwest::Result<Vec<Ticket>> {
     // Make this the official return after getting some data in the database
-    let request = reqwest::get(format!("https://localhost:44316/api/ticket/by-view-slot/{}", view_slot))
+    let request = reqwest::get(format!("{}/ticket/by-view-slot/{}", CONFIG.api.path, view_slot))
         .await?;
     
     leptos::log!("Getting the requested data...");

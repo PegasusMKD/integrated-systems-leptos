@@ -3,9 +3,11 @@ use leptos_router::*;
 
 use crate::models::{BearerRequestBuilder, User, UpdateUserDto};
 
+use crate::constants::CONFIG;
+
 async fn fetch_roles() -> reqwest::Result<Vec<String>> {
     let client = reqwest::Client::new();
-    let request = client.get("https://localhost:44316/api/users/roles")
+    let request = client.get(format!("{}/users/roles", CONFIG.api.path))
         .send()
         .await?;
 
@@ -22,7 +24,7 @@ async fn fetch_roles() -> reqwest::Result<Vec<String>> {
 
 async fn update_user(payload: UpdateUserDto) -> reqwest::Result<()> {
     let client = reqwest::Client::new();
-    let request = client.put(format!("https://localhost:44316/api/users/{}", payload.id.unwrap()))
+    let request = client.put(format!("{}/users/{}", CONFIG.api.path, payload.id.unwrap()))
         .json(&payload)
         .add_token()
         .send()
@@ -40,7 +42,7 @@ async fn update_user(payload: UpdateUserDto) -> reqwest::Result<()> {
 
 async fn get_user(id: &str) -> reqwest::Result<User> {
     let client = reqwest::Client::new();
-    let request = client.get(format!("https://localhost:44316/api/users/{}", id))
+    let request = client.get(format!("{}/users/{}", CONFIG.api.path, id))
         .add_token()
         .send()
         .await?;

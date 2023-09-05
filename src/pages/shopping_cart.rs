@@ -6,9 +6,11 @@ use leptos::ev::SubmitEvent;
 
 use crate::models::{Ticket, Cart, BearerRequestBuilder, CreateOrder};
 
+use crate::constants::CONFIG;
+
 async fn get_shopping_cart_tickets() -> reqwest::Result<Cart> {
     let client = reqwest::Client::new();
-    let request = client.get("https://localhost:44316/api/cart/by-user")
+    let request = client.get(format!("{}/cart/by-user", CONFIG.api.path))
         .add_token()
         .send()
         .await?;
@@ -25,7 +27,7 @@ async fn get_shopping_cart_tickets() -> reqwest::Result<Cart> {
 
 async fn remove_ticket_from_shopping_cart(ticket: String) -> reqwest::Result<()> {
     let client = reqwest::Client::new();
-    let request = client.post(format!("https://localhost:44316/api/cart/remove-ticket/{}", ticket))
+    let request = client.post(format!("{}/cart/remove-ticket/{}", CONFIG.api.path, ticket))
         .add_token()
         .send()
         .await?;
@@ -44,7 +46,7 @@ async fn remove_ticket_from_shopping_cart(ticket: String) -> reqwest::Result<()>
 async fn create_order(name: String, date: String, cvc: String, card_number: String) -> reqwest::Result<()> {
     let payload = CreateOrder::new(name, date, cvc, card_number);
     let client = reqwest::Client::new();
-    let request = client.post("https://localhost:44316/api/order")
+    let request = client.post(format!("{}/order", CONFIG.api.path))
         .json(&payload)
         .add_token()
         .send()

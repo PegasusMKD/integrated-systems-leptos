@@ -8,9 +8,11 @@ use crate::models::{Ticket, TicketStatus, BearerRequestBuilder};
 
 use crate::pages::tickets::{index::TicketsIndexPage, export::TicketsExportPage};
 
+use crate::constants::CONFIG;
+
 async fn add_to_cart(ticket: String) -> reqwest::Result<()> {
     let client = reqwest::Client::new();
-    let request = client.post(format!("https://localhost:44316/api/cart/add-ticket/{}", ticket))
+    let request = client.post(format!("{}/cart/add-ticket/{}", CONFIG.api.path, ticket))
         .add_token()
         .send()
         .await?;
@@ -27,7 +29,7 @@ async fn add_to_cart(ticket: String) -> reqwest::Result<()> {
 
 async fn delete_ticket(ticket: String) -> reqwest::Result<()> {
     let client = reqwest::Client::new();
-    let request = client.delete(format!("https://localhost:44316/api/ticket/{}", ticket))
+    let request = client.delete(format!("{}/ticket/{}", CONFIG.api.path, ticket))
         .send()
         .await?;
 
