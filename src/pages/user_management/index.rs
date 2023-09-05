@@ -79,7 +79,7 @@ pub fn UsersIndexTable(cx: Scope) -> impl IntoView {
                     { users_data_table }
                     <For 
                         each = move || data.get()
-                        key = |record: &User| record.id
+                        key = |record: &User| record.id.unwrap()
                         view = move |cx, record: User| {
                            view! { cx, <UserRow record refresh_trigger/> } 
                         }

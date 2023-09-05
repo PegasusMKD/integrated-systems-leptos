@@ -259,12 +259,78 @@ pub struct Order {
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct User {
-    pub id: Uuid,
+    pub id: Option<Uuid>,
     
     #[serde(alias = "userName")]
     pub username: String,
     pub email: String,
-    pub roles: Vec<String>
+    pub roles: Vec<String>,
+    #[serde(alias = "emailConfirmed")]
+    pub email_confirmed: bool
+}
+
+impl User {
+    
+    pub fn new() -> User {
+        User { id: None, username: String::new(), email: String::new(), roles: Vec::new(), email_confirmed: false }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct UpdateUserDto {
+    pub id: Option<Uuid>,
+    
+    #[serde(rename(serialize = "userName"))]
+    pub username: String,
+    pub email: String,
+    
+    // Only update related fields
+    #[serde(rename(serialize = "currentPassword"))]
+    pub current_password: Option<String>,
+
+    #[serde(rename(serialize = "newPassword"))]
+    pub new_password: Option<String>,
+
+    #[serde(rename(serialize = "emailConfirmed"))]
+    pub email_confirmed: bool,
+    pub role: String,
+}
+
+impl UpdateUserDto {
+    
+    pub fn configure_from_user(&mut self, user: User) {
+        self.id = user.id;
+        self.email_confirmed = user.email_confirmed;
+        self.email = user.email;
+    }
+
+    pub fn create_from_user(user: User, username: String, current_password: String, new_password: String, role: String) -> UpdateUserDto {
+        let mut data = UpdateUserDto::default();
+        data.configure_from_user(user);
+        data.username = username;
+        data.role = role;
+        if current_password.is_empty() || new_password.is_empty() {
+            return data;
+        }
+        data.current_password = Some(current_password);
+        data.new_password = Some(new_password);
+        data
+    }
+}
+
+impl Default for UpdateUserDto {
+
+    fn default() -> UpdateUserDto {
+        UpdateUserDto { 
+            id: None,
+            username: String::new(),
+            email: String::new(),
+            current_password: None,
+            new_password: None,
+            email_confirmed: false, 
+            role: String::new() 
+        }
+    }
 }
 
 

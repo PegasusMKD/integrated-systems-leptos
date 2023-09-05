@@ -36,7 +36,7 @@ This should be a sufficient list for required changes
 
  - [X] Implement base template (header/footer/base body)
  - [X] Implement the Home Page
- - [ ] Implement the Index pages for each menu item in the navigation bar - IN PROGRESS
+ - [X] Implement the Index pages for each menu item in the navigation bar - IN PROGRESS
  - [X] View Slot Index Page
  - [X] View Slot Create Page
  - [X] View Slot Edit Page
@@ -51,10 +51,20 @@ This should be a sufficient list for required changes
  - [X] Implement "Shopping Cart Index Page"
  - [X] Implement Stripe (https://docs.rs/stripe-rust/latest/stripe/)
  - [X] Implement Orders pages
- - [ ] Implement Users Management page - IN PROGRESS
- - [ ] Implement all required functionalities (CRUD essentially)
- - [ ] Implement different displays based on user role
+ - [X] Implement Users Management page
+ - [X] Implement all required functionalities (CRUD essentially)
+ - [ ] Implement different displays based on user role - IN PROGRESS
  - [ ] Test for bugs
+ - [ ] Implement register
+ - [ ] Implement logout
+
+Also in regards to maintanance:
+
+ - [ ] Clean-up all/most leptos & Rust warnings
+ - [ ] Remove hard-coded BE server path and add some extra configuration on top of it
+ - [ ] Add time-out for token (aka, automatically clean-up invalid sessions)
+ - [ ] Figure out problem with User Role Claims
+
 
 # Bonus
 
@@ -63,6 +73,7 @@ Things that I'd like to add if I have time or feel like doing:
  - [ ] Implement a # column to the tables which properly updates, but only itself gets updated, not entire DOM of the table
  - [ ] Re-organize the code-base to be easier to navigate and access structs/traits/impls
  - [ ] Add "redirects" if user is not authenticated
+ - [ ] Implement user details page (page where the user can update their own information)
 
 
  [this repo]: https://github.com/ThePrimeagen/orgwasm
