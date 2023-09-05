@@ -53,15 +53,15 @@ This should be a sufficient list for required changes
  - [X] Implement Orders pages
  - [X] Implement Users Management page
  - [X] Implement all required functionalities (CRUD essentially)
- - [ ] Implement different displays based on user role - IN PROGRESS
+ - [X] Implement different displays based on user role
  - [ ] Test for bugs
  - [ ] Implement register
  - [ ] Implement logout
 
 Also in regards to maintanance:
 
- - [ ] Clean-up all/most leptos & Rust warnings
- - [ ] Remove hard-coded BE server path and add some extra configuration on top of it
+ - [X] Clean-up all/most leptos & Rust warnings
+ - [ ] Remove hard-coded BE server path and add some extra configuration on top of it - IN PROGRESS
  - [ ] Add time-out for token (aka, automatically clean-up invalid sessions)
  - [ ] Figure out problem with User Role Claims
 

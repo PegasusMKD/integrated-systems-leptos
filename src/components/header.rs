@@ -35,13 +35,23 @@ pub fn Header(cx: Scope, log_in_trigger: Trigger) -> impl IntoView {
         };
 
         if logged_in {
-            view! {cx, 
-                <LinkItem url="/shopping-cart".to_string() txt="Shopping Cart".to_string()/>
-                <LinkItem url="/view-slots".to_string() txt="All View Slots".to_string()/>
-                <LinkItem url="/tickets".to_string() txt="All Tickets".to_string()/>
-                <LinkItem url="/orders".to_string() txt="Your Orders".to_string()/>
-                <LinkItem url="/user-management".to_string() txt="User Management".to_string()/>
-                <p class="px-4 font-semibold text-base">Hello, { UserDetails::read_detail("username".to_string()) }!</p>
+            if UserDetails::has_role(String::from("Administrator")) {
+                return view! {cx, 
+                    <LinkItem url="/shopping-cart".to_string() txt="Shopping Cart".to_string()/>
+                    <LinkItem url="/view-slots".to_string() txt="All View Slots".to_string()/>
+                    <LinkItem url="/tickets".to_string() txt="All Tickets".to_string()/>
+                    <LinkItem url="/orders".to_string() txt="Your Orders".to_string()/>
+                    <LinkItem url="/user-management".to_string() txt="User Management".to_string()/>
+                    <p class="px-4 font-semibold text-base">Hello, { UserDetails::read_detail("username".to_string()) }!</p>
+                };
+            } else {
+                view! {cx, 
+                    <LinkItem url="/shopping-cart".to_string() txt="Shopping Cart".to_string()/>
+                    <LinkItem url="/view-slots".to_string() txt="All View Slots".to_string()/>
+                    <LinkItem url="/tickets".to_string() txt="All Tickets".to_string()/>
+                    <LinkItem url="/orders".to_string() txt="Your Orders".to_string()/>
+                    <p class="px-4 font-semibold text-base">Hello, { UserDetails::read_detail("username".to_string()) }!</p>
+                }
             }
         } else {
             view! {cx, 

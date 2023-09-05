@@ -189,6 +189,14 @@ impl UserDetails {
         LocalStorage::get(key).unwrap()
     }
 
+    pub fn get_roles() -> Vec<String> {
+        LocalStorage::get::<Vec<String>>("roles").unwrap()
+    }
+
+    pub fn has_role(role: String) -> bool {
+        UserDetails::get_roles().contains(&role)
+    }
+
     pub fn delete() {
         LocalStorage::delete("token");
         LocalStorage::delete("username");

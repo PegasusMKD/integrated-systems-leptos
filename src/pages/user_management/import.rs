@@ -1,6 +1,6 @@
-use leptos::{*, ev::SubmitEvent};
+use leptos::*;
 use wasm_bindgen::{JsCast, UnwrapThrowExt};
-use web_sys::{HtmlInputElement, FileList, FormData};
+use web_sys::FormData;
 use gloo_net::http::Request;
 use leptos_router::{use_navigate, NavigateOptions};
 

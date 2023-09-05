@@ -2,7 +2,7 @@ use leptos::*;
 use leptos_router::A;
 
 use crate::pages::tickets::TicketItem;
-use crate::models::{Ticket, FilterTicketsByDates};
+use crate::models::{Ticket, FilterTicketsByDates, UserDetails};
 
 // TODO: Add proper error handling with status_code checks and custom errors (probably)
 async fn filter_tickets_by_date(from_date: String, to_date: String) -> reqwest::Result<Vec<Ticket>> {
@@ -29,6 +29,29 @@ async fn filter_tickets_by_date(from_date: String, to_date: String) -> reqwest::
 }
 
 #[component]
+pub fn ExportButton(cx: Scope) -> impl IntoView {
+    let logged_in_resource = create_local_resource(cx, move || (), move |_| async move { UserDetails::user_logged_in() });
+    move || {
+        let logged_in_data = logged_in_resource.read(cx);
+        let logged_in = match logged_in_data {
+            None => false,
+            Some(val) => val
+        };
+
+        leptos::log!("Logged in: {}", logged_in);
+        if logged_in && UserDetails::has_role(String::from("Administrator")) {
+            view! {cx,
+                <A href="/tickets/export"><button class="mx-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">Export</button></A>
+            }         
+        } else {
+            view! {cx, <></> }.into_view(cx)
+        }
+    }
+
+    
+}
+
+#[component]
 pub fn FromToTicketsFilter(cx: Scope, trigger_filter: RwSignal<bool>, from_date: RwSignal<String>, to_date: RwSignal<String>) -> impl IntoView {
     
     view! {cx,
@@ -44,7 +67,7 @@ pub fn FromToTicketsFilter(cx: Scope, trigger_filter: RwSignal<bool>, from_date:
                 </div>
             </div>
             <button on:click = move |_| { trigger_filter.set(!trigger_filter.get()); } class="mx-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Filter</button>
-            <A href="/tickets/export"><button class="mx-4 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">Export</button></A>
+            <ExportButton />
         </div>
 
     }

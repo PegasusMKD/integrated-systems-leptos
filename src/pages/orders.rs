@@ -1,5 +1,4 @@
 use leptos::*;
-use leptos_router::*;
 
 use crate::models::{BearerRequestBuilder, Order};
 
@@ -30,7 +29,7 @@ pub fn OrderRow(cx: Scope, record: Order) -> impl IntoView {
             <td class="px-6 py-4">{"Order#"}{record.order_number}</td>
             <td class="px-6 py-4">{record.total_price} $</td>
             <td class="px-6 py-4">
-                <a href={pdf_url} download=""><button class="text-white mr-2 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Generate PDF Invoice</button></a>
+                <a href=pdf_url download=""><button class="text-white mr-2 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Generate PDF Invoice</button></a>
             </td>
         </tr>
     }
