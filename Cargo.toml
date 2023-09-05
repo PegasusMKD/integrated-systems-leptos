@@ -21,7 +21,7 @@ log = "0.4"
 cfg-if = "1.0"
 
 # dependecies for client (enable when csr or hydrate set)
-wasm-bindgen = { version = "0.2", optional = true }
+wasm-bindgen = { version = "0.2.87" }
 console_log = { version = "0.2", optional = true }
 console_error_panic_hook = { version = "0.1", optional = true }
 
@@ -40,6 +40,7 @@ atomic = "0.6.0"
 itertools = "0.11.0"
 web-time = "0.2.0"
 gloo-storage = "0.3.0"
+web-sys = {version = "0.3.64", features = ["HtmlInputElement", "FileList", "File", "Blob", "ReadableStream", "FileReader", "FormData", "HtmlFormElement"] }
 
 [dependencies.uuid]
 version = "1.4.1"
@@ -56,7 +57,9 @@ version = "1.0.183"
 [dependencies.reqwest]
 version = "0.11.18"
 features = [
-  "json"
+  "json",
+  "multipart",
+  "stream"
 ]
 
 [dependencies.time]
@@ -72,22 +75,8 @@ features = [
 
 [features]
 default=["csr"]
-hydrate = [
-  "leptos/hydrate",
-  "leptos_meta/hydrate",
-  "leptos_router/hydrate",
-  "dep:wasm-bindgen",
-  "dep:console_log",
-  "dep:console_error_panic_hook",
-]
-csr = [
-  "leptos/csr",
-  "leptos_meta/csr",
-  "leptos_router/csr",
-  "dep:wasm-bindgen",
-  "dep:console_log",
-  "dep:console_error_panic_hook",
-]
+hydrate = ["leptos/hydrate", "leptos_meta/hydrate", "leptos_router/hydrate", "dep:console_log", "dep:console_error_panic_hook"]
+csr = ["leptos/csr", "leptos_meta/csr", "leptos_router/csr", "dep:console_log", "dep:console_error_panic_hook"]
 ssr = [
   "leptos/ssr",
   "leptos_meta/ssr",

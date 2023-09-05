@@ -257,6 +257,16 @@ pub struct Order {
     pub total_price: f32
 }
 
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct User {
+    pub id: Uuid,
+    
+    #[serde(alias = "userName")]
+    pub username: String,
+    pub email: String,
+    pub roles: Vec<String>
+}
+
 
 pub trait BearerRequestBuilder {
     fn add_token(self) -> Self;

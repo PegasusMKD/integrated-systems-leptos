@@ -48,11 +48,12 @@ This should be a sufficient list for required changes
  - [X] Connect directly to BE
  - [X] Deserialize data since keys are using different cases
  - [X] Style the table
- - [ ] Implement "Shopping Cart Index Page"
- - [ ] Implement Stripe (https://docs.rs/stripe-rust/latest/stripe/)
- - [ ] Implement Orders pages
- - [ ] Implement Users Management page
+ - [X] Implement "Shopping Cart Index Page"
+ - [X] Implement Stripe (https://docs.rs/stripe-rust/latest/stripe/)
+ - [X] Implement Orders pages
+ - [ ] Implement Users Management page - IN PROGRESS
  - [ ] Implement all required functionalities (CRUD essentially)
+ - [ ] Implement different displays based on user role
  - [ ] Test for bugs
 
 # Bonus

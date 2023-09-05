@@ -5,6 +5,7 @@ use crate::pages::home::HomePage;
 use crate::pages::view_slots::ViewSlotPage;
 use crate::pages::tickets::TicketsPage;
 
+use crate::pages::user_management::UsersPage;
 use crate::pages::login::LoginPage;
 use crate::pages::orders::OrdersPage;
 use crate::pages::shopping_cart::ShoppingCartPage;
@@ -36,10 +37,9 @@ pub fn Body(cx: Scope, log_in_trigger: Trigger) -> impl IntoView {
                         <TicketsPage/>   
                     </Route>
                    <Route path="/orders" view=OrdersPage/>
-                    <Route path="/user-management" view=move |cx| view! {
-                        cx,
-                        <p>User Management</p>
-                    }/> 
+                    <Route path="/user-management" view=Outlet>
+                        <UsersPage/>
+                    </Route> 
               </Routes>
             </div>
         </main>
