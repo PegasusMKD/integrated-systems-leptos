@@ -57,13 +57,14 @@ This should be a sufficient list for required changes
  - [ ] Test for bugs
  - [ ] Implement register
  - [ ] Implement logout
+ - [ ] Implement Dockerfile for deployment - IN PROGRESS
 
 Also in regards to maintanance:
 
  - [X] Clean-up all/most leptos & Rust warnings
- - [ ] Remove hard-coded BE server path and add some extra configuration on top of it - IN PROGRESS
+ - [X] Remove hard-coded BE server path and add some extra configuration on top of it
  - [ ] Add time-out for token (aka, automatically clean-up invalid sessions)
- - [ ] Figure out problem with User Role Claims
+ - [X] Figure out problem with User Role Claims - token was just expired most likely, works fine now
 
 
 # Bonus

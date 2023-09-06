@@ -10,6 +10,7 @@ use crate::constants::CONFIG;
 async fn filter_tickets_by_date(from_date: String, to_date: String) -> reqwest::Result<Vec<Ticket>> {
     // Make this the official return after getting some data in the database
     leptos::log!("Logged first!!!");
+    leptos::log!("Test extra log for build times");
     let data = FilterTicketsByDates::new(from_date, to_date);
     leptos::log!("Called lol");
     let client = reqwest::Client::new();

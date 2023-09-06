@@ -8,10 +8,6 @@ pub mod utils;
 
 use cfg_if::cfg_if;
 
-static_toml::static_toml! {
-    pub static CONFIG = include_toml!("deployment.toml");
-}
-
 cfg_if! {
     if #[cfg(feature = "ssr")] {
         use actix_files::Files;
