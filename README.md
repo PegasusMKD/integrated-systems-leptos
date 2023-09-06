@@ -36,7 +36,7 @@ This should be a sufficient list for required changes
 
  - [X] Implement base template (header/footer/base body)
  - [X] Implement the Home Page
- - [X] Implement the Index pages for each menu item in the navigation bar - IN PROGRESS
+ - [X] Implement the Index pages for each menu item in the navigation bar
  - [X] View Slot Index Page
  - [X] View Slot Create Page
  - [X] View Slot Edit Page
@@ -57,7 +57,14 @@ This should be a sufficient list for required changes
  - [ ] Test for bugs
  - [ ] Implement register
  - [ ] Implement logout
- - [ ] Implement Dockerfile for deployment - IN PROGRESS
+ - [X] Implement Dockerfile for deployment
+
+In regards to deployment:
+
+ - [ ] Find a good site to deploy Rust on (for now DigitalOcean looks like a decent choice, do more research on YT though)
+ - [ ] Deploy BE on Azure if still have credits
+ - [ ] Deploy Rust manually first
+ - [ ] Setup github actions for deployment
 
 Also in regards to maintanance:
 
