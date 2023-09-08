@@ -61,10 +61,14 @@ This should be a sufficient list for required changes
 
 In regards to deployment:
 
- - [ ] Find a good site to deploy Rust on (for now DigitalOcean looks like a decent choice, do more research on YT though)
- - [ ] Deploy BE on Azure if still have credits
- - [ ] Deploy Rust manually first
+ - [X] Find a good site to deploy Rust on (for now DigitalOcean looks like a decent choice, do more research on YT though) - works well with Digital Ocean Droplets
+ - [X] Deploy BE on Azure if still have credits - deployed on Digital Ocean Kubernetes Cluster
+ - [X] Deploy Rust manually first
+ - [X] Add kubernetes files
  - [ ] Setup github actions for deployment
+ - [ ] Add 'push-to-deploy' code to the pipelines
+ - [ ] Mimic on BE side as well
+ - [ ] Add .dockerignore file
 
 Also in regards to maintanance:
 

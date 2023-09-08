@@ -1,2 +1,2 @@
 [api]
-path = "https://localhost:44316/api"
+path = "http://dotnet-api.skopje-geoguessr.com/api"
