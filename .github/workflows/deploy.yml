@@ -10,11 +10,18 @@ on:
   push:
     branches:
       - master
-        # paths:
-        # - 'config/**'
-        # - 'server.py'
-        # - 'Dockerfile'
-        # - '.github/workflows/**'
+    paths:
+      - '*.toml'
+      - '*.yaml'
+      - '*.yml'
+      - 'src/**'
+      - '.github/**'
+      - 'tailwind.config.js'
+      - 'index.html'
+      - 'input.css'
+      - 'package.json'
+      - 'site.css'
+      - 'style/**'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel.
 jobs:
