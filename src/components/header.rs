@@ -1,5 +1,5 @@
 use leptos::*;
-use leptos_router::{A, use_location};
+use leptos_router::{A, use_location, NavigateOptions, use_navigate};
 
 use crate::models::UserDetails;
 
@@ -19,11 +19,26 @@ fn LinkItem(cx: Scope, url: String, txt: String) -> impl IntoView {
 
 }
 
+#[component]
+fn LogOutAnchor(cx: Scope, trigger: RwSignal<bool>) -> impl IntoView {
+    let logout_action = move |_| {
+        UserDetails::delete();
+        trigger.set(!trigger.get());
+        let navigate = use_navigate(cx);
+        leptos::log!("Should have notified by now...");
+        navigate("/", NavigateOptions::default()).unwrap();
+    };
+
+    view! { cx,
+        <a on:click=logout_action class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"><button>Logout</button></a>
+    }
+}
+
 
 #[component]
-pub fn Header(cx: Scope, log_in_trigger: Trigger) -> impl IntoView {
+pub fn Header(cx: Scope, log_in_trigger: RwSignal<bool>) -> impl IntoView {
     let resource = create_local_resource(cx,
-        move || log_in_trigger.track(), 
+        move || log_in_trigger.get(), 
         move |_| async move { UserDetails::user_logged_in() }
     );
     
@@ -43,6 +58,7 @@ pub fn Header(cx: Scope, log_in_trigger: Trigger) -> impl IntoView {
                     <LinkItem url="/orders".to_string() txt="Your Orders".to_string()/>
                     <LinkItem url="/user-management".to_string() txt="User Management".to_string()/>
                     <p class="px-4 font-semibold text-base">Hello, { UserDetails::read_detail("username".to_string()) }!</p>
+                    <LogOutAnchor trigger=log_in_trigger/>
                 };
             } else {
                 view! {cx, 
@@ -51,6 +67,7 @@ pub fn Header(cx: Scope, log_in_trigger: Trigger) -> impl IntoView {
                     <LinkItem url="/tickets".to_string() txt="All Tickets".to_string()/>
                     <LinkItem url="/orders".to_string() txt="Your Orders".to_string()/>
                     <p class="px-4 font-semibold text-base">Hello, { UserDetails::read_detail("username".to_string()) }!</p>
+                    <LogOutAnchor trigger=log_in_trigger/>
                 }
             }
         } else {

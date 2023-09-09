@@ -24,7 +24,7 @@ async fn login(email: String, password: String) -> reqwest::Result<UserDetails> 
 }
 
 #[component]
-pub fn LoginPage(cx: Scope, trigger: Trigger) -> impl IntoView {
+pub fn LoginPage(cx: Scope, trigger: RwSignal<bool>) -> impl IntoView {
     let (email, set_email) = create_signal(cx, "".to_string());
     let (password, set_password) = create_signal(cx, "".to_string());
     
@@ -37,7 +37,7 @@ pub fn LoginPage(cx: Scope, trigger: Trigger) -> impl IntoView {
             match response {
                 Ok(data) => {
                     data.save();
-                    trigger.notify();
+                    trigger.set(!trigger.get());
                     navigate("/home", NavigateOptions::default()).unwrap();
                 },
                 Err(err) => leptos::log!("Error during login: {:?}", err)

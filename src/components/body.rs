@@ -12,7 +12,7 @@ use crate::pages::shopping_cart::ShoppingCartPage;
 // use crate::pages::register::RegisterPage;
 
 #[component]
-pub fn Body(cx: Scope, log_in_trigger: Trigger) -> impl IntoView {
+pub fn Body(cx: Scope, log_in_trigger: RwSignal<bool>) -> impl IntoView {
     view! {
         cx,
         <div class="w-full h-full">

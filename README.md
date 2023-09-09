@@ -56,7 +56,7 @@ This should be a sufficient list for required changes
  - [X] Implement different displays based on user role
  - [ ] Test for bugs
  - [ ] Implement register
- - [ ] Implement logout
+ - [X] Implement logout
  - [X] Implement Dockerfile for deployment
 
 In regards to deployment:

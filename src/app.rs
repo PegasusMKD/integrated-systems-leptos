@@ -10,7 +10,7 @@ use crate::components::body::Body;
 pub fn App(cx: Scope) -> impl IntoView {
     provide_meta_context(cx);
     
-    let log_in_trigger = create_trigger(cx);
+    let log_in_trigger = create_rw_signal(cx, false);
     
     view! {
         cx,

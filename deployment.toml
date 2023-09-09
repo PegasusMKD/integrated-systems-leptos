@@ -1,2 +1,3 @@
 [api]
 path = "http://dotnet-api.skopje-geoguessr.com/api"
+# path = "https://localhost:44316/api"
