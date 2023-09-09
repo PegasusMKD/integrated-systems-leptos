@@ -61,7 +61,7 @@ pub fn LoginPage(cx: Scope, trigger: RwSignal<bool>) -> impl IntoView {
                       </div>
                       <div class="px-2 flex w-full justify-start items-center">
                         <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                        <p class="px-6">Don't have an account? <A href="/register">Register now!</A></p>
+                        <p class="px-6">"Don't" have an account? <A href="/register">Register now!</A></p>
                       </div>
                     </form>
                 </div>
