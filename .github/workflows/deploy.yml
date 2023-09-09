@@ -48,7 +48,7 @@ jobs:
 
     # Deploy to DigitalOCcean Kubernetes.
     - name: Update deployment file
-      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|registry.digitalocean.com/integrated-systems-registry/integrated-systems/leptos:'${TAG}'|' $GITHUB_WORKSPACE/leptos-ui-deployment.yml
+      run: TAG=$(echo $GITHUB_SHA | head -c7) && sed -i 's|<IMAGE>|registry.digitalocean.com/integrated-systems-registry/integrated-systems/leptos:'${TAG}'|' $GITHUB_WORKSPACE/leptos-ui-deployment.yaml
 
     - name: Save DigitalOcean kubeconfig with short-lived credentials
       run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 k8s-1-27-4-do-0-ams3-1694138463403
@@ -62,7 +62,7 @@ jobs:
     #  run: "kubectl patch serviceaccount default -p '{\"imagePullSecrets\": [{\"name\": \"registry-sdas\"}]}'"
 
     - name: Deploy to DigitalOcean Kubernetes
-      run: kubectl apply -f $GITHUB_WORKSPACE/leptos-ui-deployment.yml
+      run: kubectl apply -f $GITHUB_WORKSPACE/leptos-ui-deployment.yaml
 
     - name: Verify deployment
       run: kubectl rollout status deployment/leptos-ui
