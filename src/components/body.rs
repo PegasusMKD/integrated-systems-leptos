@@ -9,7 +9,7 @@ use crate::pages::user_management::UsersPage;
 use crate::pages::login::LoginPage;
 use crate::pages::orders::OrdersPage;
 use crate::pages::shopping_cart::ShoppingCartPage;
-// use crate::pages::register::RegisterPage;
+use crate::pages::register::RegisterPage;
 
 #[component]
 pub fn Body(cx: Scope, log_in_trigger: RwSignal<bool>) -> impl IntoView {
@@ -21,7 +21,7 @@ pub fn Body(cx: Scope, log_in_trigger: RwSignal<bool>) -> impl IntoView {
                 <Routes>
                     <Route path="" view=HomePage/>
                    <Route path="/login" view=move |cx| { view! {cx, <LoginPage trigger={log_in_trigger}/> } }/>
-   //                <Route path="/register" view=RegisterPage/>
+                   <Route path="/register" view=RegisterPage/>
                    <Route path="/home" view=HomePage/>
                     <Route path="/shopping-cart" view=ShoppingCartPage/>
                     <Route path="/view-slots" view=Outlet>

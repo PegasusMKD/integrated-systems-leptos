@@ -167,6 +167,24 @@ impl LoginDetails {
     }
 }
 
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct RegisterDetails {
+    pub email: String,
+    #[serde(rename(serialize="userName"))]
+    pub username: String,
+    pub password: String
+}
+
+impl RegisterDetails {
+    
+    pub fn new(email: String, password: String) -> RegisterDetails {
+        RegisterDetails { username: email.clone(), email, password }
+    }
+}
+
+
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UserDetails {
     pub token: String,
