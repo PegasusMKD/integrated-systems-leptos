@@ -55,7 +55,7 @@ This should be a sufficient list for required changes
  - [X] Implement all required functionalities (CRUD essentially)
  - [X] Implement different displays based on user role
  - [ ] Test for bugs
- - [ ] Implement register
+ - [ ] Implement register - IN PROGRESS
  - [X] Implement logout
  - [X] Implement Dockerfile for deployment
 
