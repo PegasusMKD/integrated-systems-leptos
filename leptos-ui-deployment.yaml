@@ -24,7 +24,7 @@ spec:
         io.kompose.service: leptos-ui
     spec:
       containers:
-        - image: registry.digitalocean.com/integrated-systems-registry/integrated-systems/leptos:v0.6
+        - image: <IMAGE>
           name: leptos-ui
           ports:
             - containerPort: 3000

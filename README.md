@@ -65,10 +65,10 @@ In regards to deployment:
  - [X] Deploy BE on Azure if still have credits - deployed on Digital Ocean Kubernetes Cluster
  - [X] Deploy Rust manually first
  - [X] Add kubernetes files
+ - [ ] Add .dockerignore file
  - [ ] Setup github actions for deployment
  - [ ] Add 'push-to-deploy' code to the pipelines
  - [ ] Mimic on BE side as well
- - [ ] Add .dockerignore file
 
 Also in regards to maintanance:
 
