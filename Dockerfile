@@ -29,7 +29,7 @@ FROM rustlang/rust:nightly-bullseye as runner
 COPY --from=builder /app/target/server/release/integrated-systems-leptos /app/
 # /target/site contains our JS/WASM/CSS, etc.
 COPY --from=builder /app/target/site /app/site
-COPY --from=builder /app/style /app/
+COPY --from=builder /app/style /app/style
 
 COPY --from=builder /app/target/front/wasm32-unknown-unknown/release/integrated_systems_leptos.wasm /app/front/integrated_systems_leptos.wasm
 # Copy Cargo.toml if it’s needed at runtime
