@@ -54,7 +54,7 @@ This should be a sufficient list for required changes
  - [X] Implement Users Management page
  - [X] Implement all required functionalities (CRUD essentially)
  - [X] Implement different displays based on user role
- - [ ] Test for bugs
+ - [X] Test for bugs
  - [X] Implement register 
  - [X] Implement logout
  - [X] Implement Dockerfile for deployment
@@ -75,7 +75,7 @@ Also in regards to maintanance:
 
  - [X] Clean-up all/most leptos & Rust warnings
  - [X] Remove hard-coded BE server path and add some extra configuration on top of it
- - [ ] Add time-out for token (aka, automatically clean-up invalid sessions)
+ - [X] Add time-out for token (aka, automatically clean-up invalid sessions)
  - [X] Figure out problem with User Role Claims - token was just expired most likely, works fine now
 
 
@@ -85,9 +85,9 @@ Things that I'd like to add if I have time or feel like doing:
  - [ ] Make components more generic
  - [ ] Implement a # column to the tables which properly updates, but only itself gets updated, not entire DOM of the table
  - [ ] Re-organize the code-base to be easier to navigate and access structs/traits/impls
- - [ ] Add "redirects" if user is not authenticated
+ - [ ] Add "redirects" if user is not authenticated - Partially implemented 
  - [ ] Implement user details page (page where the user can update their own information)
-
+ - [ ] Implement logic for config which determines which deployment.toml it should use
 
  [this repo]: https://github.com/ThePrimeagen/orgwasm
  [this project]: https://github.com/PegasusMKD/Integrated-Systems-Homework

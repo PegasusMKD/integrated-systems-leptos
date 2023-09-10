@@ -5,6 +5,7 @@ use leptos_router::*;
 use crate::components::header::Header;
 use crate::components::footer::Footer;
 use crate::components::body::Body;
+use crate::components::login_partial::LoginPartial;
 
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
@@ -21,6 +22,7 @@ pub fn App(cx: Scope) -> impl IntoView {
         <Stylesheet id="custom-css" href="/style/site.css"/>
         <Link rel="shortcut icon" type_="image/ico" href="/favicon.ico"/>
         <Router>
+            <LoginPartial trigger={log_in_trigger}/>
             <Header log_in_trigger/>
             <Body log_in_trigger/>
             <Footer/>
